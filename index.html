@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyAcademy - Platform Pembelajaran Python Interaktif</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        py: {
+                            blue: '#3776AB',
+                            yellow: '#FFD43B',
+                            dark: '#0B0F17',
+                            card: '#131A26',
+                            border: '#212D40',
+                            accent: '#10B981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['Fira Code', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B0F17;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(19, 26, 38, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .glass-card {
+            background: rgba(19, 26, 38, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid #212D40;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(55, 118, 171, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(55, 118, 171, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Python Gradient Glow */
+        .py-gradient-text {
+            background: linear-gradient(135deg, #3776AB 0%, #38BDF8 40%, #FFD43B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .py-glow {
+            box-shadow: 0 0 25px -5px rgba(55, 118, 171, 0.4), 0 0 10px -5px rgba(255, 212, 59, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #212D40;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3776AB;
+        }
+
+        textarea:focus {
+            outline: none !important;
+        }
+    </style>
+</head>
+<body class="selection:bg-py-blue selection:text-white">
+
+    <!-- Ambient Glowing Background Bubbles -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-py-blue/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-py-border/80 px-4 lg:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-py-blue via-sky-400 to-py-yellow p-0.5 shadow-lg shadow-py-blue/30 group-hover:shadow-py-blue/50 transition">
+                    <div class="w-full h-full bg-py-dark rounded-[10px] flex items-center justify-center">
+                        <i class="fa-brands fa-python text-py-yellow text-xl group-hover:rotate-12 transition-transform duration-300"></i>
+                    </div>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-white">Py<span class="text-py-yellow">Academy</span></span>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#beranda" class="hover:text-py-yellow transition-colors">Beranda</a>
+                <a href="#materi" class="hover:text-py-yellow transition-colors">Kurikulum</a>
+                <a href="#playground" class="hover:text-py-yellow transition-colors flex items-center gap-1.5">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Playground
+                </a>
+                <a href="#quiz" class="hover:text-py-yellow transition-colors">Kuis Interaktif</a>
+                <a href="#faq" class="hover:text-py-yellow transition-colors">FAQ</a>
+            </nav>
+
+            <!-- CTA Actions -->
+            <div class="hidden sm:flex items-center space-x-4">
+                <a href="#playground" class="px-5 py-2.5 rounded-xl font-semibold text-xs text-slate-900 bg-py-yellow hover:bg-amber-300 transition-all shadow-md shadow-amber-500/20 active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Buka Editor Kode</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menuToggleBtn" class="md:hidden text-slate-300 hover:text-white p-2">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobileMenu" class="hidden md:hidden mt-3 pt-3 border-t border-py-border space-y-3 pb-3 text-sm">
+            <a href="#beranda" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Beranda</a>
+            <a href="#materi" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Kurikulum Materi</a>
+            <a href="#playground" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Playground Simulator</a>
+            <a href="#quiz" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Kuis & Tes</a>
+            <a href="#faq" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">FAQ</a>
+            <a href="#materi" class="block text-center py-2 px-4 rounded-xl font-bold bg-py-yellow text-slate-900">Mulai Belajar Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="pt-36 pb-20 px-4 lg:px-8 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Hero Headline -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-py-blue/30 text-xs font-semibold text-sky-300">
+                    <i class="fa-solid fa-bolt-lightning text-py-yellow"></i>
+                    <span>Platform Pembelajaran Python #1 untuk Pemula hingga Mahir</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-white">
+                    Kuasai Bahasa <br>
+                    <span class="py-gradient-text">Python Masa Depan</span> <br>
+                    secara Interaktif.
+                </h1>
+
+                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    Pelajari sintaksis Python, Struktur Data, Pemrograman Berbasis Objek (OOP), hingga Automation & Data Science. Tulis dan jalankan kode langsung di browser tanpa instalasi rumit.
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#materi" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-py-yellow via-amber-300 to-emerald-400 hover:opacity-90 transition shadow-xl shadow-amber-500/20 active:scale-95 flex items-center justify-center gap-3">
+                        <span>Mulai Belajar Gratis</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    
+                    <a href="#playground" class="w-full sm:w-auto px-7 py-4 rounded-xl font-semibold text-sm text-slate-200 glass-panel border border-py-border hover:bg-slate-800/80 hover:text-white transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-terminal text-py-blue"></i>
+                        <span>Coba Interactive Editor</span>
+                    </a>
+                </div>
+
+                <!-- Feature Highlights -->
+                <div class="grid grid-cols-3 gap-4 pt-8 border-t border-py-border/80 text-left max-w-lg mx-auto lg:mx-0">
+                    <div>
+                        <p class="text-2xl font-extrabold text-white">6+</p>
+                        <p class="text-xs text-slate-400">Modul Lengkap</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-py-yellow">100%</p>
+                        <p class="text-xs text-slate-400">Gratis & Akses Selamanya</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-extrabold text-sky-400">Live</p>
+                        <p class="text-xs text-slate-400">Code Simulator</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Hero Interactive Code Card Mockup -->
+            <div class="lg:col-span-5">
+                <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-py-border shadow-2xl py-glow relative">
+                    <div class="flex items-center justify-between pb-3 border-b border-py-border mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                            <i class="fa-brands fa-python text-py-blue"></i> main.py
+                        </span>
+                        <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono">Python 3.11</span>
+                    </div>
+
+                    <pre class="rounded-xl bg-slate-950 p-4 text-xs sm:text-sm overflow-x-auto code-font text-slate-200 leading-relaxed border border-slate-800"><code><span class="text-purple-400">class</span> <span class="text-amber-300">PyAcademy</span>:
+    <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-sky-300">self</span>, user):
+        <span class="text-sky-300">self</span>.user = user
+        <span class="text-sky-300">self</span>.level = <span class="text-emerald-400">"Suhu Python"</span>
+
+    <span class="text-purple-400">def</span> <span class="text-blue-400">mulai_belajar</span>(<span class="text-sky-300">self</span>):
+        skills = [<span class="text-emerald-400">"Data Science"</span>, <span class="text-emerald-400">"Web Dev"</span>, <span class="text-emerald-400">"AI"</span>]
+        <span class="text-purple-400">for</span> skill <span class="text-purple-400">in</span> skills:
+            <span class="text-sky-300">print</span>(<span class="text-emerald-400">f"Memuat modul {skill}... 🚀"</span>)
+        <span class="text-purple-400">return</span> <span class="text-emerald-400">f"Selamat {<span class="text-sky-300">self</span>.user}, kamu mahir!"</span>
+
+<span class="text-slate-500"># Eksekusi Kode</span>
+dev = PyAcademy(<span class="text-emerald-400">"Developer"</span>)
+dev.mulai_belajar()</code></pre>
+
+                    <div class="mt-4 p-3 rounded-xl bg-slate-950/90 border border-emerald-500/30 text-xs font-mono">
+                        <div class="flex items-center justify-between text-slate-400 mb-1">
+                            <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> Output Terminal:
+                            </span>
+                            <span class="text-[10px] text-slate-500">Eksekusi: 0.04 detik</span>
+                        </div>
+                        <div class="text-emerald-300 space-y-1">
+                            <p>Memuat modul Data Science... 🚀</p>
+                            <p>Memuat modul Web Dev... 🚀</p>
+                            <p>Memuat modul AI... 🚀</p>
+                            <p class="text-amber-300 font-bold pt-1">&gt;&gt; Selamat Developer, kamu mahir!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Module / Curriculum Section -->
+    <section id="materi" class="py-20 px-4 lg:px-8 border-t border-py-border/60 bg-slate-950/40">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-py-yellow tracking-widest uppercase bg-py-yellow/10 px-3 py-1 rounded-full border border-py-yellow/20">Kurikulum Terstruktur</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3">Materi Belajar Python Lengkap</h2>
+                <p class="text-slate-400 mt-4 text-sm sm:text-base">Dirancang bertahap dari konsep paling dasar hingga tingkat lanjut dengan contoh kode praktis yang mudah dipahami.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Navigation Tabs Side -->
+                <div class="lg:col-span-4 flex lg:flex-col overflow-x-auto gap-2 pb-4 lg:pb-0 scrollbar-none">
+                    <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn text-left p-4 rounded-xl glass-card text-white border-l-4 border-py-yellow bg-slate-800/80 flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-py-yellow/10 text-py-yellow flex items-center justify-center font-bold text-sm shrink-0">01</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 1: Dasar Python</h4>
+                            <p class="text-xs text-slate-400">Variabel, Tipe Data & Input</p>
+                        </div>
+                    </button>
+
+                    <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">02</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 2: Kontrol Alur</h4>
+                            <p class="text-xs text-slate-400">If-Else, Loop & Perulangan</p>
+                        </div>
+                    </button>
+
+                    <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">03</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 3: Struktur Data</h4>
+                            <p class="text-xs text-slate-400">List, Tuple, Dict & Set</p>
+                        </div>
+                    </button>
+
+                    <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">04</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 4: Fungsi & Modul</h4>
+                            <p class="text-xs text-slate-400">Def, Return, Lambda & Imports</p>
+                        </div>
+                    </button>
+
+                    <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">05</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 5: Pemrograman OOP</h4>
+                            <p class="text-xs text-slate-400">Class, Object & Inheritance</p>
+                        </div>
+                    </button>
+
+                    <button onclick="switchTab(6)" id="tab-btn-6" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
+                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">06</div>
+                        <div>
+                            <h4 class="font-bold text-sm">Modul 6: Proyek & Lanjutan</h4>
+                            <p class="text-xs text-slate-400">File I/O & Exception Handling</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Tab Content Panel -->
+                <div class="lg:col-span-8">
+                    <div class="glass-panel rounded-2xl p-6 lg:p-8 border border-py-border">
+                        
+                        <!-- TAB 1 CONTENT -->
+                        <div id="tab-content-1" class="tab-content space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 1: Dasar Python & Variabel</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Sintaksis dasar, mencetak output, serta menyimpan informasi ke variabel.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(1)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Python adalah bahasa pemrograman yang sangat ramah pemula karena sintaksnya yang menyerupai bahasa Inggris. Di modul ini, Anda mempelajari cara menampilkan teks ke layar dengan fungsi <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">print()</code> dan menyimpan nilai dalam variabel.
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800 flex justify-between items-center">
+                                    <span>contoh_dasar.py</span>
+                                    <span class="text-emerald-400">Tipe Data: String, Int, Float</span>
+                                </div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># 1. Mencetak Pesan</span>
+print(<span class="text-emerald-400">"Selamat Datang di PyAcademy!"</span>)
+
+<span class="text-slate-500"># 2. Variabel dan Tipe Data</span>
+nama = <span class="text-emerald-400">"Budi"</span>           <span class="text-slate-500"># String</span>
+umur = <span class="text-amber-300">20</span>               <span class="text-slate-500"># Integer</span>
+tinggi = <span class="text-amber-300">175.5</span>          <span class="text-slate-500"># Float</span>
+is_active = <span class="text-purple-400">True</span>        <span class="text-slate-500"># Boolean</span>
+
+<span class="text-slate-500"># 3. Format String (f-string)</span>
+print(<span class="text-emerald-400">f"Halo {nama}, umur kamu {umur} tahun."</span>)</code></pre>
+                            </div>
+
+                            <div class="bg-py-blue/10 border border-py-blue/30 rounded-xl p-4 text-xs text-sky-200 flex items-start gap-3">
+                                <i class="fa-solid fa-lightbulb text-py-yellow text-base shrink-0 mt-0.5"></i>
+                                <div>
+                                    <span class="font-bold block mb-0.5">Tips Penting:</span>
+                                    Python bersifat <i>Case-Sensitive</i> (membedakan huruf besar dan kecil). Variabel <code class="font-mono text-py-yellow">Nama</code> dan <code class="font-mono text-py-yellow">nama</code> dianggap variabel berbeda.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2 CONTENT -->
+                        <div id="tab-content-2" class="tab-content hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 2: Kontrol Alur (If-Else & Loop)</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Percabangan logika keputusan dan perulangan otomatis.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(2)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Kontrol alur memungkinkan program mengambil keputusan berdasarkan kondisi tertentu (<code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">if / elif / else</code>) dan mengulangi perintah berulang kali (<code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">for / while</code>).
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">percabangan_loop.py</div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># Percabangan Logika</span>
+nilai = <span class="text-amber-300">85</span>
+
+<span class="text-purple-400">if</span> nilai &gt;= <span class="text-amber-300">90</span>:
+    print(<span class="text-emerald-400">"Grade: A"</span>)
+<span class="text-purple-400">elif</span> nilai &gt;= <span class="text-amber-300">75</span>:
+    print(<span class="text-emerald-400">"Grade: B"</span>)
+<span class="text-purple-400">else</span>:
+    print(<span class="text-emerald-400">"Grade: C"</span>)
+
+<span class="text-slate-500"># Loop dengan range()</span>
+print(<span class="text-emerald-400">"Hitung Mundur:"</span>)
+<span class="text-purple-400">for</span> i <span class="text-purple-400">in</span> range(<span class="text-amber-300">3</span>, <span class="text-amber-300">0</span>, -<span class="text-amber-300">1</span>):
+    print(<span class="text-emerald-400">f"Detik ke-{i}"</span>)</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3 CONTENT -->
+                        <div id="tab-content-3" class="tab-content hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 3: Struktur Data Python</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Mengelola sekumpulan data dengan List, Tuple, Dictionary, dan Set.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(3)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Python memiliki 4 struktur data bawaan utama: <b>List</b> (berurutan dan bisa diubah), <b>Tuple</b> (tidak dapat diubah), <b>Dictionary</b> (pasangan Key-Value), dan <b>Set</b> (kumpulan elemen unik).
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">struktur_data.py</div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># List (Daftar belanja)</span>
+buah = [<span class="text-emerald-400">"Apel"</span>, <span class="text-emerald-400">"Pisang"</span>, <span class="text-emerald-400">"Jeruk"</span>]
+buah.append(<span class="text-emerald-400">"Mangga"</span>)
+
+<span class="text-slate-500"># Dictionary (Data Mahasiswa)</span>
+mhs = {
+    <span class="text-emerald-400">"nama"</span>: <span class="text-emerald-400">"Siti"</span>,
+    <span class="text-emerald-400">"jurusan"</span>: <span class="text-emerald-400">"Informatika"</span>,
+    <span class="text-emerald-400">"ipk"</span>: <span class="text-amber-300">3.92</span>
+}
+
+print(<span class="text-emerald-400">f"Buah favorit: {buah[0]}"</span>)
+print(<span class="text-emerald-400">f"IPK {mhs['nama']}: {mhs['ipk']}"</span>)</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- TAB 4 CONTENT -->
+                        <div id="tab-content-4" class="tab-content hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 4: Fungsi & Reusabilitas Kode</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Membuat fungsi kustom dengan blok `def`, parameter, dan return value.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(4)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Fungsi membantu Anda menghindari pengulangan kode (<i>DRY - Don't Repeat Yourself</i>). Fungsi didefinisikan menggunakan kata kunci <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">def</code>.
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">fungsi.py</div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">def</span> <span class="text-blue-400">hitung_diskon</span>(harga, persen=<span class="text-amber-300">10</span>):
+    total = harga - (harga * (persen / <span class="text-amber-300">100</span>))
+    <span class="text-purple-400">return</span> total
+
+<span class="text-slate-500"># Pemanggilan Fungsi</span>
+harga_awal = <span class="text-amber-300">100000</span>
+harga_akhir = hitung_diskon(harga_awal, <span class="text-amber-300">20</span>)
+print(<span class="text-emerald-400">f"Harga setelah diskon: Rp {int(harga_akhir)}"</span>)</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- TAB 5 CONTENT -->
+                        <div id="tab-content-5" class="tab-content hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 5: Pemrograman OOP (Class & Object)</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Pemrograman Berorientasi Objek untuk skala aplikasi besar.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(5)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Object-Oriented Programming (OOP) memodelkan objek dunia nyata menjadi cetak biru (<i>Class</i>) yang memiliki atribut (<i>Property</i>) dan perilaku (<i>Method</i>).
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">oop_dasar.py</div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-amber-300">Mobil</span>:
+    <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-sky-300">self</span>, merk, warna):
+        <span class="text-sky-300">self</span>.merk = merk
+        <span class="text-sky-300">self</span>.warna = warna
+
+    <span class="text-purple-400">def</span> <span class="text-blue-400">klakson</span>(<span class="text-sky-300">self</span>):
+        print(<span class="text-emerald-400">f"Mobil {self.merk} berwarna {self.warna}: Beep Beep! 🚗"</span>)
+
+<span class="text-slate-500"># Instansiasi Objek</span>
+mobil_budi = Mobil(<span class="text-emerald-400">"Tesla"</span>, <span class="text-emerald-400">"Merah"</span>)
+mobil_budi.klakson()</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- TAB 6 CONTENT -->
+                        <div id="tab-content-6" class="tab-content hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-py-border pb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Modul 6: Exception Handling & File I/O</h3>
+                                    <p class="text-xs text-slate-400 mt-1">Penanganan error (<i>Try-Except</i>) dan manipulasi berkas file.</p>
+                                </div>
+                                <button onclick="loadSnippetToPlayground(6)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
+                                </button>
+                            </div>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Agar program tidak hancur (<i>crash</i>) saat terjadi kesalahan kalkulasi, gunakan blok <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">try - except</code> untuk menangani error secara elegan.
+                            </p>
+
+                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">handling_error.py</div>
+                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">try</span>:
+    pembilang = <span class="text-amber-300">10</span>
+    penyebut = <span class="text-amber-300">0</span>
+    hasil = pembilang / penyebut
+    print(hasil)
+<span class="text-purple-400">except</span> <span class="text-amber-300">ZeroDivisionError</span>:
+    print(<span class="text-emerald-400">"Error: Angka tidak bisa dibagi dengan nol!"</span>)
+<span class="text-purple-400">finally</span>:
+    print(<span class="text-emerald-400">"Selesai mengeksekusi penanganan error."</span>)</code></pre>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Code Playground Section -->
+    <section id="playground" class="py-20 px-4 lg:px-8 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold text-sky-400 tracking-widest uppercase bg-sky-500/10 px-3 py-1 rounded-full border border-sky-400/20">Live Code Simulator</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3">Interactive Playground</h2>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Tulis kode Python pilihanmu sendiri atau pilih preset kode di bawah, lalu jalankan simulator secara langsung.</p>
+            </div>
+
+            <!-- Editor & Console Layout Grid -->
+            <div class="glass-panel rounded-2xl border border-py-border shadow-2xl overflow-hidden">
+                
+                <!-- Playground Header Bar -->
+                <div class="bg-slate-900/90 px-5 py-3.5 border-b border-py-border flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-300 font-semibold border-l border-slate-700 pl-3">
+                            <i class="fa-solid fa-code text-py-yellow mr-1"></i> playground.py
+                        </span>
+                    </div>
+
+                    <!-- Quick Presets Dropdown/Buttons -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+                        <span class="text-xs text-slate-400 font-medium whitespace-nowrap">Preset:</span>
+                        <button onclick="setPreset('hello')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Hello World</button>
+                        <button onclick="setPreset('calculator')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Kalkulator</button>
+                        <button onclick="setPreset('star')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Pola Bintang</button>
+                        <button onclick="setPreset('oop')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Mini OOP</button>
+                    </div>
+
+                    <!-- Run Action Button -->
+                    <div class="flex items-center space-x-2">
+                        <button onclick="resetEditor()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset
+                        </button>
+                        <button onclick="runPythonCode()" class="px-5 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-emerald-500 to-teal-400 hover:opacity-90 text-slate-950 transition shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-1.5">
+                            <i class="fa-solid fa-play"></i> Jalankan Kode
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Editor and Output Dual Column -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-py-border">
+                    
+                    <!-- Code Input Textarea -->
+                    <div class="p-4 bg-slate-950/80">
+                        <div class="flex items-center justify-between mb-2 text-xs text-slate-500 font-mono">
+                            <span>// Tulis kode Python Anda di sini:</span>
+                            <span>UTF-8</span>
+                        </div>
+                        <textarea id="codeEditor" spellcheck="false" class="w-full h-80 bg-transparent text-emerald-400 code-font text-xs sm:text-sm p-2 focus:outline-none resize-none leading-relaxed" placeholder="Ketik kode Python..."># Selamat Datang di PyAcademy Playground!
+nama = "Siswa PyAcademy"
+pilihan_modul = ["Basics", "Data Structures", "OOP"]
+
+print(f"Halo, {nama}!")
+print("Daftar modul yang kamu pelajari:")
+
+for idx, modul in enumerate(pilihan_modul, 1):
+    print(f"{idx}. Modul {modul}")
+
+print("\nStatus: Siap menjadi Python Master! 🚀")</textarea>
+                    </div>
+
+                    <!-- Terminal Output Window -->
+                    <div class="p-4 bg-black/90 flex flex-col justify-between min-h-[320px]">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-3 pb-2 border-b border-slate-800">
+                                <span class="text-sky-400 font-bold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-terminal text-[11px]"></i> Output Console
+                                </span>
+                                <span id="executionTime" class="text-[10px] text-slate-500">Ready</span>
+                            </div>
+
+                            <pre id="terminalOutput" class="code-font text-xs sm:text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">Klik 'Jalankan Kode' untuk melihat hasil eksekusi program...</pre>
+                        </div>
+
+                        <div class="pt-4 text-[11px] text-slate-600 font-mono border-t border-slate-900 flex justify-between items-center">
+                            <span>PyAcademy Virtual Engine v1.0</span>
+                            <span class="text-emerald-500/80"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Active</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quiz Section -->
+    <section id="quiz" class="py-20 px-4 lg:px-8 border-t border-py-border/60 bg-slate-950/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold text-py-yellow tracking-widest uppercase bg-py-yellow/10 px-3 py-1 rounded-full border border-py-yellow/20">Uji Pemahaman</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Kuis Singkat Python</h2>
+                <p class="text-slate-400 mt-2 text-sm">Uji seberapa jauh pemahaman Anda terhadap konsep dasar Python.</p>
+            </div>
+
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-py-border space-y-8">
+                
+                <!-- Quiz Item 1 -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-white text-base sm:text-lg flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-py-blue/20 text-sky-400 text-xs flex items-center justify-center shrink-0">1</span>
+                        Mana fungsi bawaan Python yang digunakan untuk menampilkan teks ke konsol?
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <button onclick="checkQuiz(1, 'a', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">A. console.log()</button>
+                        <button onclick="checkQuiz(1, 'b', true, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">B. print()</button>
+                        <button onclick="checkQuiz(1, 'c', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">C. System.out.println()</button>
+                        <button onclick="checkQuiz(1, 'd', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">D. echo()</button>
+                    </div>
+                    <div id="quiz-msg-1" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
+                </div>
+
+                <hr class="border-py-border">
+
+                <!-- Quiz Item 2 -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-white text-base sm:text-lg flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-py-blue/20 text-sky-400 text-xs flex items-center justify-center shrink-0">2</span>
+                        Tipe data manakah di Python yang sifatnya <i>Immutable</i> (tidak dapat diubah setelah dibuat)?
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <button onclick="checkQuiz(2, 'a', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">A. List</button>
+                        <button onclick="checkQuiz(2, 'b', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">B. Dictionary</button>
+                        <button onclick="checkQuiz(2, 'c', true, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">C. Tuple</button>
+                        <button onclick="checkQuiz(2, 'd', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">D. Set</button>
+                    </div>
+                    <div id="quiz-msg-2" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-4 lg:px-8 border-t border-py-border/60">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-white">Pertanyaan Umum (FAQ)</h2>
+                <p class="text-slate-400 text-sm mt-2">Jawaban atas pertanyaan yang paling sering ditanyakan pemula.</p>
+            </div>
+
+            <div class="space-y-4">
+                <details class="glass-card rounded-xl p-5 border border-py-border group transition">
+                    <summary class="font-bold text-white cursor-pointer flex justify-between items-center">
+                        Apakah saya perlu menginstal Python di laptop untuk menggunakan PyAcademy?
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
+                        Tidak perlu! Platform ini dilengkapi dengan simulator terminal interaktif berbasis JavaScript di browser sehingga Anda bisa langsung berlatih tanpa setup awal.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-xl p-5 border border-py-border group transition">
+                    <summary class="font-bold text-white cursor-pointer flex justify-between items-center">
+                        Berapa lama waktu yang dibutuhkan untuk menguasai dasar Python?
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
+                        Kebanyakan pemula dapat memahami konsep dasar (Variabel, Conditionals, Loops) dalam 1-2 minggu dengan konsistensi belajar 1 jam setiap hari.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-py-border bg-slate-950/80 py-10 px-4 lg:px-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto space-y-4">
+            <div class="flex items-center justify-center space-x-2 text-slate-300 font-bold text-base">
+                <i class="fa-brands fa-python text-py-yellow"></i>
+                <span>PyAcademy</span>
+            </div>
+            <p>© 2026 PyAcademy. Platform Belajar Python Interaktif Indonesia.</p>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript Logic -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuBtn = document.getElementById('menuToggleBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tab Switcher Logic
+        function switchTab(tabIndex) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-py-yellow', 'bg-slate-800/80', 'text-white');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+
+            const activeBtn = document.getElementById(`tab-btn-${tabIndex}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('border-transparent', 'text-slate-400');
+                activeBtn.classList.add('border-py-yellow', 'bg-slate-800/80', 'text-white');
+            }
+
+            const activeContent = document.getElementById(`tab-content-${tabIndex}`);
+            if(activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+        }
+
+        // Presets for Playground
+        const presets = {
+            hello: 'print("Halo Dunia! Selamat belajar Python.")\nnama = "PyAcademy"\nprint(f"Platform: {nama}")',
+            calculator: 'def tambah(a, b):\n    return a + b\n\nx = 15\ny = 25\nprint(f"Hasil {x} + {y} = {tambah(x, y)}")',
+            star: 'for i in range(1, 6):\n    print("⭐ " * i)',
+            oop: 'class Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\n    def status(self):\n        print(f"Hero {self.name} | HP: {self.hp}")\n\nh1 = Hero("Lancelot", 100)\nh1.status()'
+        };
+
+        function setPreset(key) {
+            const editor = document.getElementById('codeEditor');
+            if(presets[key]) {
+                editor.value = presets[key];
+            }
+        }
+
+        function loadSnippetToPlayground(modulId) {
+            const editor = document.getElementById('codeEditor');
+            const snippetMap = {
+                1: 'nama = "Budi"\numur = 20\ntinggi = 175.5\nprint(f"Halo {nama}, umur kamu {umur} tahun.")',
+                2: 'nilai = 85\nif nilai >= 75:\n    print("Lulus!")\nfor i in range(3, 0, -1):\n    print(f"Detik ke-{i}")',
+                3: 'buah = ["Apel", "Pisang", "Jeruk"]\nbuah.append("Mangga")\nprint(f"Daftar Buah: {buah}")',
+                4: 'def hitung_diskon(harga, persen=10):\n    return harga - (harga * (persen / 100))\nprint(f"Harga Diskon: Rp {int(hitung_diskon(100000, 20))}")',
+                5: 'class Mobil:\n    def __init__(self, merk):\n        self.merk = merk\n    def klakson(self):\n        print(f"Mobil {self.merk}: Beep Beep! 🚗")\nm = Mobil("Tesla")\nm.klakson()',
+                6: 'try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("Error: Pembagian dengan nol dibatalkan!")'
+            };
+
+            if(snippetMap[modulId]) {
+                editor.value = snippetMap[modulId];
+                window.location.hash = '#playground';
+            }
+        }
+
+        function resetEditor() {
+            document.getElementById('codeEditor').value = '';
+            document.getElementById('terminalOutput').textContent = 'Editor di-reset. Masukkan kode baru...';
+        }
+
+        // Python Code Interpreter Simulation Logic
+        function runPythonCode() {
+            const code = document.getElementById('codeEditor').value;
+            const outputElem = document.getElementById('terminalOutput');
+            const timeElem = document.getElementById('executionTime');
+
+            const startTime = performance.now();
+            let logs = [];
+
+            try {
+                const lines = code.split('\n');
+
+                lines.forEach(line => {
+                    let trimmed = line.trim();
+                    if(!trimmed || trimmed.startsWith('#')) return;
+
+                    // Mock Print Handling
+                    if(trimmed.startsWith('print(') && trimmed.endsWith(')')) {
+                        let content = trimmed.substring(6, trimmed.length - 1);
+                        if ((content.startsWith('"') && content.endsWith('"')) || (content.startsWith("'") && content.endsWith("'"))) {
+                            logs.push(content.slice(1, -1));
+                        } else {
+                            logs.push(`[Output Evaluated]: ${content}`);
+                        }
+                    }
+                });
+
+                const endTime = performance.now();
+                const duration = ((endTime - startTime) / 1000).toFixed(3);
+                timeElem.textContent = `Selesai dalam ${duration}s`;
+
+                if(logs.length > 0) {
+                    outputElem.textContent = logs.join('\n');
+                } else {
+                    outputElem.textContent = "Program berhasil dieksekusi tanpa keluaran print.";
+                }
+            } catch (err) {
+                outputElem.textContent = `SyntaxError/ExecutionError: ${err.message}`;
+            }
+        }
+
+        // Quiz Checker Function
+        function checkQuiz(questionId, option, isCorrect, element) {
+            const msgElem = document.getElementById(`quiz-msg-${questionId}`);
+            const options = document.querySelectorAll(`.q${questionId}-opt`);
+
+            options.forEach(opt => {
+                opt.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500');
+            });
+
+            msgElem.classList.remove('hidden', 'bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/30', 'bg-red-500/10', 'text-red-400', 'border-red-500/30');
+
+            if(isCorrect) {
+                element.classList.add('bg-emerald-500/20', 'border-emerald-500');
+                msgElem.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/30');
+                msgElem.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Benar sekali! Jawaban Anda tepat.';
+            } else {
+                element.classList.add('bg-red-500/20', 'border-red-500');
+                msgElem.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/30');
+                msgElem.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Kurang tepat. Silakan coba lagi!';
+            }
+        }
+    </script>
+</body>
+</html>
