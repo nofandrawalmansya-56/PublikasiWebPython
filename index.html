@@ -1,855 +1,237 @@
 <!DOCTYPE html>
 <html lang="id" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyAcademy - Platform Pembelajaran Python Interaktif</title>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        py: {
-                            blue: '#3776AB',
-                            yellow: '#FFD43B',
-                            dark: '#0B0F17',
-                            card: '#131A26',
-                            border: '#212D40',
-                            accent: '#10B981'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['Fira Code', 'Consolas', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0B0F17;
-            color: #E2E8F0;
-            overflow-x: hidden;
-        }
-
-        .code-font {
-            font-family: 'Fira Code', monospace;
-        }
-
-        /* Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(19, 26, 38, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
-
-        .glass-card {
-            background: rgba(19, 26, 38, 0.5);
-            backdrop-filter: blur(12px);
-            border: 1px solid #212D40;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(55, 118, 171, 0.5);
-            box-shadow: 0 10px 30px -10px rgba(55, 118, 171, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Custom Python Gradient Glow */
-        .py-gradient-text {
-            background: linear-gradient(135deg, #3776AB 0%, #38BDF8 40%, #FFD43B 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .py-glow {
-            box-shadow: 0 0 25px -5px rgba(55, 118, 171, 0.4), 0 0 10px -5px rgba(255, 212, 59, 0.3);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B0F17;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #212D40;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3776AB;
-        }
-
-        textarea:focus {
-            outline: none !important;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PyAcademy adalah platform belajar Python interaktif berbahasa Indonesia dari pemula hingga mahir.">
+<title>PyAcademy — Belajar Python dari Nol sampai Mahir</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={darkMode:'class',theme:{extend:{colors:{py:{blue:'#3776AB',yellow:'#FFD43B',dark:'#0B0F17',card:'#131A26',border:'#212D40'}},fontFamily:{sans:['Plus Jakarta Sans','sans-serif'],mono:['Fira Code','monospace']}}}};
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{color-scheme:dark}body{font-family:'Plus Jakarta Sans',sans-serif;background:#0B0F17;color:#E2E8F0;overflow-x:hidden}.code-font{font-family:'Fira Code',monospace}.glass{background:rgba(19,26,38,.82);backdrop-filter:blur(14px);border:1px solid #212D40}.lesson-card{background:#131A26;border:1px solid #263247;transition:.2s}.lesson-card:hover{transform:translateY(-2px);border-color:#3776AB}.lesson-card.active{border-color:#FFD43B;background:#1b2636}.gradient-text{background:linear-gradient(120deg,#3776AB,#38BDF8,#FFD43B);-webkit-background-clip:text;color:transparent}textarea{tab-size:4}pre{white-space:pre-wrap;overflow-wrap:anywhere}button:focus-visible,a:focus-visible{outline:2px solid #FFD43B;outline-offset:3px}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:#334155;border-radius:8px}
+</style>
 </head>
-<body class="selection:bg-py-blue selection:text-white">
+<body>
+<header class="sticky top-0 z-40 glass border-x-0 border-t-0">
+ <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+  <a href="#beranda" class="flex items-center gap-3 font-extrabold text-xl"><span class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-yellow-300 flex items-center justify-center text-slate-950"><i class="fa-brands fa-python"></i></span>Py<span class="text-yellow-300">Academy</span></a>
+  <nav class="hidden md:flex gap-6 text-sm text-slate-300"><a href="#materi" class="hover:text-yellow-300">Kurikulum</a><a href="#playground" class="hover:text-yellow-300">Playground</a><a href="#proyek" class="hover:text-yellow-300">Proyek</a><a href="#faq" class="hover:text-yellow-300">Panduan</a></nav>
+  <a href="#playground" class="rounded-xl px-4 py-2 bg-yellow-300 text-slate-950 text-sm font-bold">Mulai Coding <i class="fa-solid fa-arrow-right ml-1"></i></a>
+ </div>
+</header>
+<main>
+<section id="beranda" class="max-w-7xl mx-auto px-4 py-16 md:py-24 grid lg:grid-cols-2 gap-12 items-center">
+ <div>
+  <div class="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-xs text-sky-200 mb-5"><i class="fa-solid fa-graduation-cap"></i> Jalur belajar terstruktur • Gratis diakses</div>
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">Belajar Python dari nol hingga <span class="gradient-text">siap berkarya.</span></h1>
+  <p class="text-slate-400 text-lg leading-relaxed mt-6">Pelajari konsep langkah demi langkah, jalankan Python langsung di browser, kerjakan latihan, dan bangun proyek yang bisa kamu kembangkan sendiri.</p>
+  <div class="flex flex-wrap gap-3 mt-8"><a href="#materi" class="rounded-xl px-6 py-3 bg-yellow-300 text-slate-950 font-bold">Jelajahi 65 Modul</a><a href="#playground" class="rounded-xl px-6 py-3 glass font-semibold"><i class="fa-solid fa-terminal mr-2 text-sky-300"></i>Coba Editor</a></div>
+  <div class="grid grid-cols-3 gap-4 mt-10 pt-6 border-t border-slate-800"><div><b class="text-2xl text-white">65</b><p class="text-xs text-slate-400 mt-1">Modul belajar</p></div><div><b class="text-2xl text-yellow-300">10</b><p class="text-xs text-slate-400 mt-1">Tahap kurikulum</p></div><div><b class="text-2xl text-emerald-300">Live</b><p class="text-xs text-slate-400 mt-1">Python di browser</p></div></div>
+ </div>
+ <div class="glass rounded-2xl p-5 shadow-2xl">
+  <div class="flex justify-between items-center border-b border-slate-700 pb-3 mb-4"><span class="text-sm font-semibold"><i class="fa-brands fa-python text-yellow-300 mr-2"></i>contoh.py</span><span class="text-xs text-emerald-300">Python 3 via Pyodide</span></div>
+  <pre class="code-font text-sm leading-7 text-slate-200"><span class="text-purple-300">def</span> <span class="text-sky-300">sapa</span>(nama):
+    <span class="text-purple-300">return</span> <span class="text-emerald-300">f"Halo, {nama}!"</span>
 
-    <!-- Ambient Glowing Background Bubbles -->
-    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-py-blue/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
-    <div class="fixed bottom-1/3 right-10 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
-
-    <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-py-border/80 px-4 lg:px-8 py-3.5">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-py-blue via-sky-400 to-py-yellow p-0.5 shadow-lg shadow-py-blue/30 group-hover:shadow-py-blue/50 transition">
-                    <div class="w-full h-full bg-py-dark rounded-[10px] flex items-center justify-center">
-                        <i class="fa-brands fa-python text-py-yellow text-xl group-hover:rotate-12 transition-transform duration-300"></i>
-                    </div>
-                </div>
-                <span class="text-xl font-extrabold tracking-tight text-white">Py<span class="text-py-yellow">Academy</span></span>
-            </a>
-
-            <!-- Desktop Nav Items -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#beranda" class="hover:text-py-yellow transition-colors">Beranda</a>
-                <a href="#materi" class="hover:text-py-yellow transition-colors">Kurikulum</a>
-                <a href="#playground" class="hover:text-py-yellow transition-colors flex items-center gap-1.5">
-                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Playground
-                </a>
-                <a href="#quiz" class="hover:text-py-yellow transition-colors">Kuis Interaktif</a>
-                <a href="#faq" class="hover:text-py-yellow transition-colors">FAQ</a>
-            </nav>
-
-            <!-- CTA Actions -->
-            <div class="hidden sm:flex items-center space-x-4">
-                <a href="#playground" class="px-5 py-2.5 rounded-xl font-semibold text-xs text-slate-900 bg-py-yellow hover:bg-amber-300 transition-all shadow-md shadow-amber-500/20 active:scale-95 flex items-center gap-2">
-                    <i class="fa-solid fa-code"></i>
-                    <span>Buka Editor Kode</span>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="menuToggleBtn" class="md:hidden text-slate-300 hover:text-white p-2">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Container -->
-        <div id="mobileMenu" class="hidden md:hidden mt-3 pt-3 border-t border-py-border space-y-3 pb-3 text-sm">
-            <a href="#beranda" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Beranda</a>
-            <a href="#materi" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Kurikulum Materi</a>
-            <a href="#playground" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Playground Simulator</a>
-            <a href="#quiz" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">Kuis & Tes</a>
-            <a href="#faq" class="block py-1.5 px-3 rounded hover:bg-slate-800 text-slate-300">FAQ</a>
-            <a href="#materi" class="block text-center py-2 px-4 rounded-xl font-bold bg-py-yellow text-slate-900">Mulai Belajar Sekarang</a>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="beranda" class="pt-36 pb-20 px-4 lg:px-8 relative z-10 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <!-- Left Hero Headline -->
-            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-py-blue/30 text-xs font-semibold text-sky-300">
-                    <i class="fa-solid fa-bolt-lightning text-py-yellow"></i>
-                    <span>Platform Pembelajaran Python #1 untuk Pemula hingga Mahir</span>
-                </div>
-
-                <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-white">
-                    Kuasai Bahasa <br>
-                    <span class="py-gradient-text">Python Masa Depan</span> <br>
-                    secara Interaktif.
-                </h1>
-
-                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                    Pelajari sintaksis Python, Struktur Data, Pemrograman Berbasis Objek (OOP), hingga Automation & Data Science. Tulis dan jalankan kode langsung di browser tanpa instalasi rumit.
-                </p>
-
-                <!-- Hero Action Buttons -->
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                    <a href="#materi" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm text-slate-950 bg-gradient-to-r from-py-yellow via-amber-300 to-emerald-400 hover:opacity-90 transition shadow-xl shadow-amber-500/20 active:scale-95 flex items-center justify-center gap-3">
-                        <span>Mulai Belajar Gratis</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    
-                    <a href="#playground" class="w-full sm:w-auto px-7 py-4 rounded-xl font-semibold text-sm text-slate-200 glass-panel border border-py-border hover:bg-slate-800/80 hover:text-white transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-terminal text-py-blue"></i>
-                        <span>Coba Interactive Editor</span>
-                    </a>
-                </div>
-
-                <!-- Feature Highlights -->
-                <div class="grid grid-cols-3 gap-4 pt-8 border-t border-py-border/80 text-left max-w-lg mx-auto lg:mx-0">
-                    <div>
-                        <p class="text-2xl font-extrabold text-white">6+</p>
-                        <p class="text-xs text-slate-400">Modul Lengkap</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-extrabold text-py-yellow">100%</p>
-                        <p class="text-xs text-slate-400">Gratis & Akses Selamanya</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-extrabold text-sky-400">Live</p>
-                        <p class="text-xs text-slate-400">Code Simulator</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Hero Interactive Code Card Mockup -->
-            <div class="lg:col-span-5">
-                <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-py-border shadow-2xl py-glow relative">
-                    <div class="flex items-center justify-between pb-3 border-b border-py-border mb-4">
-                        <div class="flex items-center space-x-2">
-                            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
-                            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
-                            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
-                        </div>
-                        <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-                            <i class="fa-brands fa-python text-py-blue"></i> main.py
-                        </span>
-                        <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono">Python 3.11</span>
-                    </div>
-
-                    <pre class="rounded-xl bg-slate-950 p-4 text-xs sm:text-sm overflow-x-auto code-font text-slate-200 leading-relaxed border border-slate-800"><code><span class="text-purple-400">class</span> <span class="text-amber-300">PyAcademy</span>:
-    <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-sky-300">self</span>, user):
-        <span class="text-sky-300">self</span>.user = user
-        <span class="text-sky-300">self</span>.level = <span class="text-emerald-400">"Suhu Python"</span>
-
-    <span class="text-purple-400">def</span> <span class="text-blue-400">mulai_belajar</span>(<span class="text-sky-300">self</span>):
-        skills = [<span class="text-emerald-400">"Data Science"</span>, <span class="text-emerald-400">"Web Dev"</span>, <span class="text-emerald-400">"AI"</span>]
-        <span class="text-purple-400">for</span> skill <span class="text-purple-400">in</span> skills:
-            <span class="text-sky-300">print</span>(<span class="text-emerald-400">f"Memuat modul {skill}... 🚀"</span>)
-        <span class="text-purple-400">return</span> <span class="text-emerald-400">f"Selamat {<span class="text-sky-300">self</span>.user}, kamu mahir!"</span>
-
-<span class="text-slate-500"># Eksekusi Kode</span>
-dev = PyAcademy(<span class="text-emerald-400">"Developer"</span>)
-dev.mulai_belajar()</code></pre>
-
-                    <div class="mt-4 p-3 rounded-xl bg-slate-950/90 border border-emerald-500/30 text-xs font-mono">
-                        <div class="flex items-center justify-between text-slate-400 mb-1">
-                            <span class="text-emerald-400 font-bold flex items-center gap-1.5">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> Output Terminal:
-                            </span>
-                            <span class="text-[10px] text-slate-500">Eksekusi: 0.04 detik</span>
-                        </div>
-                        <div class="text-emerald-300 space-y-1">
-                            <p>Memuat modul Data Science... 🚀</p>
-                            <p>Memuat modul Web Dev... 🚀</p>
-                            <p>Memuat modul AI... 🚀</p>
-                            <p class="text-amber-300 font-bold pt-1">&gt;&gt; Selamat Developer, kamu mahir!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Module / Curriculum Section -->
-    <section id="materi" class="py-20 px-4 lg:px-8 border-t border-py-border/60 bg-slate-950/40">
-        <div class="max-w-7xl mx-auto">
-            
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold text-py-yellow tracking-widest uppercase bg-py-yellow/10 px-3 py-1 rounded-full border border-py-yellow/20">Kurikulum Terstruktur</span>
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3">Materi Belajar Python Lengkap</h2>
-                <p class="text-slate-400 mt-4 text-sm sm:text-base">Dirancang bertahap dari konsep paling dasar hingga tingkat lanjut dengan contoh kode praktis yang mudah dipahami.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
-                <!-- Navigation Tabs Side -->
-                <div class="lg:col-span-4 flex lg:flex-col overflow-x-auto gap-2 pb-4 lg:pb-0 scrollbar-none">
-                    <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn text-left p-4 rounded-xl glass-card text-white border-l-4 border-py-yellow bg-slate-800/80 flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-py-yellow/10 text-py-yellow flex items-center justify-center font-bold text-sm shrink-0">01</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 1: Dasar Python</h4>
-                            <p class="text-xs text-slate-400">Variabel, Tipe Data & Input</p>
-                        </div>
-                    </button>
-
-                    <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">02</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 2: Kontrol Alur</h4>
-                            <p class="text-xs text-slate-400">If-Else, Loop & Perulangan</p>
-                        </div>
-                    </button>
-
-                    <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">03</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 3: Struktur Data</h4>
-                            <p class="text-xs text-slate-400">List, Tuple, Dict & Set</p>
-                        </div>
-                    </button>
-
-                    <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">04</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 4: Fungsi & Modul</h4>
-                            <p class="text-xs text-slate-400">Def, Return, Lambda & Imports</p>
-                        </div>
-                    </button>
-
-                    <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">05</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 5: Pemrograman OOP</h4>
-                            <p class="text-xs text-slate-400">Class, Object & Inheritance</p>
-                        </div>
-                    </button>
-
-                    <button onclick="switchTab(6)" id="tab-btn-6" class="tab-btn text-left p-4 rounded-xl glass-card text-slate-400 border-l-4 border-transparent hover:text-white flex items-center gap-3 min-w-[240px] lg:min-w-0 transition-all">
-                        <div class="w-9 h-9 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm shrink-0">06</div>
-                        <div>
-                            <h4 class="font-bold text-sm">Modul 6: Proyek & Lanjutan</h4>
-                            <p class="text-xs text-slate-400">File I/O & Exception Handling</p>
-                        </div>
-                    </button>
-                </div>
-
-                <!-- Tab Content Panel -->
-                <div class="lg:col-span-8">
-                    <div class="glass-panel rounded-2xl p-6 lg:p-8 border border-py-border">
-                        
-                        <!-- TAB 1 CONTENT -->
-                        <div id="tab-content-1" class="tab-content space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 1: Dasar Python & Variabel</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Sintaksis dasar, mencetak output, serta menyimpan informasi ke variabel.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(1)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Python adalah bahasa pemrograman yang sangat ramah pemula karena sintaksnya yang menyerupai bahasa Inggris. Di modul ini, Anda mempelajari cara menampilkan teks ke layar dengan fungsi <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">print()</code> dan menyimpan nilai dalam variabel.
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800 flex justify-between items-center">
-                                    <span>contoh_dasar.py</span>
-                                    <span class="text-emerald-400">Tipe Data: String, Int, Float</span>
-                                </div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># 1. Mencetak Pesan</span>
-print(<span class="text-emerald-400">"Selamat Datang di PyAcademy!"</span>)
-
-<span class="text-slate-500"># 2. Variabel dan Tipe Data</span>
-nama = <span class="text-emerald-400">"Budi"</span>           <span class="text-slate-500"># String</span>
-umur = <span class="text-amber-300">20</span>               <span class="text-slate-500"># Integer</span>
-tinggi = <span class="text-amber-300">175.5</span>          <span class="text-slate-500"># Float</span>
-is_active = <span class="text-purple-400">True</span>        <span class="text-slate-500"># Boolean</span>
-
-<span class="text-slate-500"># 3. Format String (f-string)</span>
-print(<span class="text-emerald-400">f"Halo {nama}, umur kamu {umur} tahun."</span>)</code></pre>
-                            </div>
-
-                            <div class="bg-py-blue/10 border border-py-blue/30 rounded-xl p-4 text-xs text-sky-200 flex items-start gap-3">
-                                <i class="fa-solid fa-lightbulb text-py-yellow text-base shrink-0 mt-0.5"></i>
-                                <div>
-                                    <span class="font-bold block mb-0.5">Tips Penting:</span>
-                                    Python bersifat <i>Case-Sensitive</i> (membedakan huruf besar dan kecil). Variabel <code class="font-mono text-py-yellow">Nama</code> dan <code class="font-mono text-py-yellow">nama</code> dianggap variabel berbeda.
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- TAB 2 CONTENT -->
-                        <div id="tab-content-2" class="tab-content hidden space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 2: Kontrol Alur (If-Else & Loop)</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Percabangan logika keputusan dan perulangan otomatis.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(2)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Kontrol alur memungkinkan program mengambil keputusan berdasarkan kondisi tertentu (<code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">if / elif / else</code>) dan mengulangi perintah berulang kali (<code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">for / while</code>).
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">percabangan_loop.py</div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># Percabangan Logika</span>
-nilai = <span class="text-amber-300">85</span>
-
-<span class="text-purple-400">if</span> nilai &gt;= <span class="text-amber-300">90</span>:
-    print(<span class="text-emerald-400">"Grade: A"</span>)
-<span class="text-purple-400">elif</span> nilai &gt;= <span class="text-amber-300">75</span>:
-    print(<span class="text-emerald-400">"Grade: B"</span>)
-<span class="text-purple-400">else</span>:
-    print(<span class="text-emerald-400">"Grade: C"</span>)
-
-<span class="text-slate-500"># Loop dengan range()</span>
-print(<span class="text-emerald-400">"Hitung Mundur:"</span>)
-<span class="text-purple-400">for</span> i <span class="text-purple-400">in</span> range(<span class="text-amber-300">3</span>, <span class="text-amber-300">0</span>, -<span class="text-amber-300">1</span>):
-    print(<span class="text-emerald-400">f"Detik ke-{i}"</span>)</code></pre>
-                            </div>
-                        </div>
-
-                        <!-- TAB 3 CONTENT -->
-                        <div id="tab-content-3" class="tab-content hidden space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 3: Struktur Data Python</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Mengelola sekumpulan data dengan List, Tuple, Dictionary, dan Set.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(3)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Python memiliki 4 struktur data bawaan utama: <b>List</b> (berurutan dan bisa diubah), <b>Tuple</b> (tidak dapat diubah), <b>Dictionary</b> (pasangan Key-Value), dan <b>Set</b> (kumpulan elemen unik).
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">struktur_data.py</div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-slate-500"># List (Daftar belanja)</span>
-buah = [<span class="text-emerald-400">"Apel"</span>, <span class="text-emerald-400">"Pisang"</span>, <span class="text-emerald-400">"Jeruk"</span>]
-buah.append(<span class="text-emerald-400">"Mangga"</span>)
-
-<span class="text-slate-500"># Dictionary (Data Mahasiswa)</span>
-mhs = {
-    <span class="text-emerald-400">"nama"</span>: <span class="text-emerald-400">"Siti"</span>,
-    <span class="text-emerald-400">"jurusan"</span>: <span class="text-emerald-400">"Informatika"</span>,
-    <span class="text-emerald-400">"ipk"</span>: <span class="text-amber-300">3.92</span>
-}
-
-print(<span class="text-emerald-400">f"Buah favorit: {buah[0]}"</span>)
-print(<span class="text-emerald-400">f"IPK {mhs['nama']}: {mhs['ipk']}"</span>)</code></pre>
-                            </div>
-                        </div>
-
-                        <!-- TAB 4 CONTENT -->
-                        <div id="tab-content-4" class="tab-content hidden space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 4: Fungsi & Reusabilitas Kode</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Membuat fungsi kustom dengan blok `def`, parameter, dan return value.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(4)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Fungsi membantu Anda menghindari pengulangan kode (<i>DRY - Don't Repeat Yourself</i>). Fungsi didefinisikan menggunakan kata kunci <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">def</code>.
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">fungsi.py</div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">def</span> <span class="text-blue-400">hitung_diskon</span>(harga, persen=<span class="text-amber-300">10</span>):
-    total = harga - (harga * (persen / <span class="text-amber-300">100</span>))
-    <span class="text-purple-400">return</span> total
-
-<span class="text-slate-500"># Pemanggilan Fungsi</span>
-harga_awal = <span class="text-amber-300">100000</span>
-harga_akhir = hitung_diskon(harga_awal, <span class="text-amber-300">20</span>)
-print(<span class="text-emerald-400">f"Harga setelah diskon: Rp {int(harga_akhir)}"</span>)</code></pre>
-                            </div>
-                        </div>
-
-                        <!-- TAB 5 CONTENT -->
-                        <div id="tab-content-5" class="tab-content hidden space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 5: Pemrograman OOP (Class & Object)</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Pemrograman Berorientasi Objek untuk skala aplikasi besar.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(5)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Object-Oriented Programming (OOP) memodelkan objek dunia nyata menjadi cetak biru (<i>Class</i>) yang memiliki atribut (<i>Property</i>) dan perilaku (<i>Method</i>).
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">oop_dasar.py</div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-amber-300">Mobil</span>:
-    <span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-sky-300">self</span>, merk, warna):
-        <span class="text-sky-300">self</span>.merk = merk
-        <span class="text-sky-300">self</span>.warna = warna
-
-    <span class="text-purple-400">def</span> <span class="text-blue-400">klakson</span>(<span class="text-sky-300">self</span>):
-        print(<span class="text-emerald-400">f"Mobil {self.merk} berwarna {self.warna}: Beep Beep! 🚗"</span>)
-
-<span class="text-slate-500"># Instansiasi Objek</span>
-mobil_budi = Mobil(<span class="text-emerald-400">"Tesla"</span>, <span class="text-emerald-400">"Merah"</span>)
-mobil_budi.klakson()</code></pre>
-                            </div>
-                        </div>
-
-                        <!-- TAB 6 CONTENT -->
-                        <div id="tab-content-6" class="tab-content hidden space-y-6">
-                            <div class="flex items-center justify-between border-b border-py-border pb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Modul 6: Exception Handling & File I/O</h3>
-                                    <p class="text-xs text-slate-400 mt-1">Penanganan error (<i>Try-Except</i>) dan manipulasi berkas file.</p>
-                                </div>
-                                <button onclick="loadSnippetToPlayground(6)" class="px-3.5 py-1.5 rounded-lg bg-py-blue/20 text-sky-300 border border-py-blue/40 text-xs font-semibold hover:bg-py-blue hover:text-white transition flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play"></i> Coba Kode Ini
-                                </button>
-                            </div>
-
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                Agar program tidak hancur (<i>crash</i>) saat terjadi kesalahan kalkulasi, gunakan blok <code class="bg-slate-800 px-1.5 py-0.5 rounded text-py-yellow font-mono text-xs">try - except</code> untuk menangani error secara elegan.
-                            </p>
-
-                            <div class="rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                                <div class="bg-slate-900 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-800">handling_error.py</div>
-                                <pre class="p-4 text-xs sm:text-sm font-mono text-slate-200 overflow-x-auto"><code><span class="text-purple-400">try</span>:
-    pembilang = <span class="text-amber-300">10</span>
-    penyebut = <span class="text-amber-300">0</span>
-    hasil = pembilang / penyebut
-    print(hasil)
-<span class="text-purple-400">except</span> <span class="text-amber-300">ZeroDivisionError</span>:
-    print(<span class="text-emerald-400">"Error: Angka tidak bisa dibagi dengan nol!"</span>)
-<span class="text-purple-400">finally</span>:
-    print(<span class="text-emerald-400">"Selesai mengeksekusi penanganan error."</span>)</code></pre>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Code Playground Section -->
-    <section id="playground" class="py-20 px-4 lg:px-8 relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-10">
-                <span class="text-xs font-bold text-sky-400 tracking-widest uppercase bg-sky-500/10 px-3 py-1 rounded-full border border-sky-400/20">Live Code Simulator</span>
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3">Interactive Playground</h2>
-                <p class="text-slate-400 mt-3 text-sm sm:text-base">Tulis kode Python pilihanmu sendiri atau pilih preset kode di bawah, lalu jalankan simulator secara langsung.</p>
-            </div>
-
-            <!-- Editor & Console Layout Grid -->
-            <div class="glass-panel rounded-2xl border border-py-border shadow-2xl overflow-hidden">
-                
-                <!-- Playground Header Bar -->
-                <div class="bg-slate-900/90 px-5 py-3.5 border-b border-py-border flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="flex items-center space-x-1.5">
-                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
-                            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                        </div>
-                        <span class="text-xs font-mono text-slate-300 font-semibold border-l border-slate-700 pl-3">
-                            <i class="fa-solid fa-code text-py-yellow mr-1"></i> playground.py
-                        </span>
-                    </div>
-
-                    <!-- Quick Presets Dropdown/Buttons -->
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-                        <span class="text-xs text-slate-400 font-medium whitespace-nowrap">Preset:</span>
-                        <button onclick="setPreset('hello')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Hello World</button>
-                        <button onclick="setPreset('calculator')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Kalkulator</button>
-                        <button onclick="setPreset('star')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Pola Bintang</button>
-                        <button onclick="setPreset('oop')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition whitespace-nowrap">Mini OOP</button>
-                    </div>
-
-                    <!-- Run Action Button -->
-                    <div class="flex items-center space-x-2">
-                        <button onclick="resetEditor()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
-                            <i class="fa-solid fa-rotate-right mr-1"></i> Reset
-                        </button>
-                        <button onclick="runPythonCode()" class="px-5 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-emerald-500 to-teal-400 hover:opacity-90 text-slate-950 transition shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-1.5">
-                            <i class="fa-solid fa-play"></i> Jalankan Kode
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Editor and Output Dual Column -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-py-border">
-                    
-                    <!-- Code Input Textarea -->
-                    <div class="p-4 bg-slate-950/80">
-                        <div class="flex items-center justify-between mb-2 text-xs text-slate-500 font-mono">
-                            <span>// Tulis kode Python Anda di sini:</span>
-                            <span>UTF-8</span>
-                        </div>
-                        <textarea id="codeEditor" spellcheck="false" class="w-full h-80 bg-transparent text-emerald-400 code-font text-xs sm:text-sm p-2 focus:outline-none resize-none leading-relaxed" placeholder="Ketik kode Python..."># Selamat Datang di PyAcademy Playground!
-nama = "Siswa PyAcademy"
-pilihan_modul = ["Basics", "Data Structures", "OOP"]
-
+<span class="text-slate-500"># Coba ide, jalankan, pelajari hasilnya</span>
+<span class="text-yellow-200">for</span> siswa <span class="text-yellow-200">in</span> [<span class="text-emerald-300">"Ayu"</span>, <span class="text-emerald-300">"Budi"</span>]:
+    <span class="text-sky-300">print</span>(sapa(siswa))</pre>
+  <div class="mt-4 bg-black/40 rounded-xl p-4 text-sm code-font"><p class="text-slate-500 mb-2">OUTPUT</p><p class="text-emerald-300">Halo, Ayu!</p><p class="text-emerald-300">Halo, Budi!</p></div>
+ </div>
+</section>
+<section id="materi" class="border-y border-slate-800 bg-slate-950/40 py-16">
+ <div class="max-w-7xl mx-auto px-4">
+  <div class="max-w-3xl mx-auto text-center mb-10"><p class="text-xs uppercase tracking-[.25em] text-yellow-300 font-bold">Kurikulum bertahap</p><h2 class="text-3xl md:text-5xl font-extrabold mt-3">Pilih modul, lalu praktikkan</h2><p class="text-slate-400 mt-4">Mulai dari dasar. Setiap pelajaran memiliki penjelasan, contoh yang dapat dicoba, dan tantangan kecil.</p></div>
+  <div class="grid lg:grid-cols-[320px_1fr] gap-6">
+   <aside><label for="searchLesson" class="block text-sm text-slate-400 mb-2">Cari materi</label><input id="searchLesson" placeholder="Contoh: perulangan, list, file..." class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-3 mb-4 outline-none focus:border-sky-400">
+    <div id="levelFilters" class="flex flex-wrap gap-2 mb-4"></div><div id="lessonList" class="grid sm:grid-cols-2 lg:grid-cols-1 gap-2 max-h-[700px] overflow-auto pr-1"></div>
+   </aside>
+   <article id="lessonPanel" class="glass rounded-2xl p-5 md:p-8 min-h-[500px]"></article>
+  </div>
+ </div>
+</section>
+<section id="playground" class="py-16 max-w-7xl mx-auto px-4">
+ <div class="text-center mb-8"><p class="text-xs uppercase tracking-[.25em] text-sky-300 font-bold">Python sungguhan</p><h2 class="text-3xl md:text-5xl font-extrabold mt-3">Interactive Playground</h2><p class="text-slate-400 mt-3">Tulis kode Python dan jalankan dengan runtime Pyodide. Perlu koneksi internet saat pertama kali memuat mesin Python.</p></div>
+ <div class="glass rounded-2xl overflow-hidden">
+  <div class="flex flex-wrap gap-3 items-center justify-between bg-slate-900 px-4 py-3 border-b border-slate-700"><div class="text-sm font-semibold"><i class="fa-solid fa-code text-yellow-300 mr-2"></i>playground.py</div><div class="flex gap-2 flex-wrap"><button class="preset rounded-lg bg-slate-800 px-3 py-2 text-xs" data-preset="hello">Hello World</button><button class="preset rounded-lg bg-slate-800 px-3 py-2 text-xs" data-preset="loop">Perulangan</button><button class="preset rounded-lg bg-slate-800 px-3 py-2 text-xs" data-preset="function">Fungsi</button><button id="resetCode" class="rounded-lg bg-slate-800 px-3 py-2 text-xs">Reset</button><button id="runCode" class="rounded-lg bg-emerald-400 text-slate-950 font-bold px-4 py-2 text-xs"><i class="fa-solid fa-play mr-1"></i> Jalankan</button></div></div>
+  <div class="grid lg:grid-cols-2"><div class="p-4 border-b lg:border-b-0 lg:border-r border-slate-800"><div class="text-xs text-slate-500 mb-2">KODE PYTHON</div><textarea id="codeEditor" spellcheck="false" class="code-font text-sm w-full min-h-[350px] bg-transparent text-emerald-200 resize-y outline-none" aria-label="Editor kode Python">nama = "Siswa PyAcademy"
 print(f"Halo, {nama}!")
-print("Daftar modul yang kamu pelajari:")
+for angka in range(1, 4):
+    print("Angka:", angka)</textarea><p class="text-xs text-slate-500 mt-2">Catatan: input() interaktif belum didukung pada editor ini; gunakan nilai langsung dalam variabel untuk latihan.</p></div><div class="p-4 bg-black/40 min-h-[350px]"><div class="flex justify-between text-xs text-slate-400 border-b border-slate-800 pb-3 mb-3"><span><i class="fa-solid fa-terminal text-sky-300 mr-2"></i>KONSOL</span><span id="runtimeStatus">Memuat runtime Python…</span></div><pre id="output" class="code-font text-sm text-slate-200">Menyiapkan Python di browser. Tunggu sebentar…</pre></div></div>
+ </div>
+ <p class="text-xs text-slate-500 mt-3">Kode berjalan di browser menggunakan Pyodide. Jangan masukkan kata sandi atau data rahasia ke dalam contoh kode.</p>
+</section>
+<section id="proyek" class="border-y border-slate-800 bg-slate-950/40 py-16">
+ <div class="max-w-7xl mx-auto px-4"><div class="text-center mb-10"><p class="text-xs uppercase tracking-[.25em] text-yellow-300 font-bold">Belajar dengan membuat</p><h2 class="text-3xl md:text-4xl font-extrabold mt-3">Proyek latihan bertahap</h2><p class="text-slate-400 mt-3">Gunakan proyek ini untuk menggabungkan beberapa konsep Python.</p></div><div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div></div>
+</section>
+<section id="faq" class="max-w-4xl mx-auto px-4 py-16"><h2 class="text-3xl font-extrabold text-center mb-8">Panduan penggunaan</h2><div class="space-y-3">
+ <details class="glass rounded-xl p-5"><summary class="font-bold cursor-pointer">Apakah PyAcademy gratis?</summary><p class="text-sm text-slate-400 mt-3">Halaman pembelajaran ini dapat digunakan gratis. Runtime Python di browser membutuhkan internet untuk memuat Pyodide pertama kali.</p></details>
+ <details class="glass rounded-xl p-5"><summary class="font-bold cursor-pointer">Apakah editor ini menjalankan Python sungguhan?</summary><p class="text-sm text-slate-400 mt-3">Ya. Editor menggunakan Pyodide, distribusi Python yang berjalan di browser melalui WebAssembly. Tidak semua paket Python atau fitur sistem operasi tersedia.</p></details>
+ <details class="glass rounded-xl p-5"><summary class="font-bold cursor-pointer">Bagaimana urutan belajar yang disarankan?</summary><p class="text-sm text-slate-400 mt-3">Ikuti modul dari nomor 1 secara berurutan. Baca penjelasan, jalankan contoh, ubah kode, lalu selesaikan tantangan sebelum lanjut.</p></details>
+ <details class="glass rounded-xl p-5"><summary class="font-bold cursor-pointer">Apakah progres belajar tersimpan?</summary><p class="text-sm text-slate-400 mt-3">Versi ini belum memiliki akun atau sinkronisasi progres antardevice. Tandai modul yang sudah dipelajari secara pribadi; fitur penyimpanan dapat ditambahkan pada pengembangan berikutnya.</p></details>
+ </div></section>
+</main>
+<footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500"><p class="font-bold text-slate-300 text-base mb-2"><i class="fa-brands fa-python text-yellow-300 mr-2"></i>PyAcademy</p><p>© 2026 PyAcademy • Belajar, praktik, dan berkarya dengan Python.</p></footer>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+const lessons = [
+{level:1,title:"Mengenal Python dan persiapan",desc:"Mengenal Python, kegunaan, interpreter, dan cara menjalankan program.",ex:'# Program Python pertamamu\nprint("Halo, dunia!")',challenge:"Ubah pesan di dalam print() menjadi nama kamu.",hint:"Teks ditulis di antara tanda kutip."},
+{level:1,title:"print() dan komentar",desc:"Menampilkan teks atau nilai dengan print() dan memberi catatan memakai #.",ex:'# Ini adalah komentar\nprint("Belajar Python")\nprint(2026)',challenge:"Tampilkan nama, kelas, dan cita-cita pada tiga baris.",hint:"Gunakan tiga perintah print()."},
+{level:1,title:"Variabel dan aturan penamaan",desc:"Variabel menyimpan nilai. Nama variabel peka huruf besar-kecil dan tidak boleh diawali angka.",ex:'nama = "Ayu"\nkelas = 5\nprint(nama)\nprint(kelas)',challenge:"Buat variabel kota dan tampilkan isinya.",hint:"Contoh: kota = 'Bojonegoro'"},
+{level:1,title:"Tipe data dasar",desc:"Kenali str (teks), int (bilangan bulat), float (desimal), dan bool (benar/salah).",ex:'nama = "Budi"\numur = 12\nberat = 38.5\nsudah_belajar = True\nprint(type(nama))\nprint(type(umur))\nprint(type(berat))\nprint(type(sudah_belajar))',challenge:"Buat masing-masing satu variabel bertipe teks, bilangan bulat, desimal, dan Boolean.",hint:"Gunakan type() untuk memeriksa tipe."},
+{level:1,title:"Input dan output",desc:"input() menerima teks dari pengguna. Pada playground ini, gunakan variabel langsung karena input interaktif belum diaktifkan.",ex:'nama = "Sinta"\nprint("Halo,", nama)',challenge:"Ganti nilai nama dan tampilkan sapaan yang berbeda.",hint:"Ubah nilai di sebelah kanan tanda =."},
+{level:1,title:"Konversi tipe data",desc:"int(), float(), str(), dan bool() mengubah nilai ke tipe tertentu jika memungkinkan.",ex:'angka_teks = "25"\nangka = int(angka_teks)\nprint(angka + 5)\nprint(str(angka) + " tahun")',challenge:"Ubah teks '12' menjadi angka lalu tambahkan 8.",hint:"Gunakan int('12')."},
+{level:1,title:"Operator aritmatika",desc:"Gunakan +, -, *, /, //, %, dan ** untuk perhitungan.",ex:'a = 17\nb = 5\nprint("Tambah:", a + b)\nprint("Bagi:", a / b)\nprint("Bagi bulat:", a // b)\nprint("Sisa:", a % b)\nprint("Pangkat:", a ** 2)',challenge:"Hitung luas persegi panjang dengan panjang 12 dan lebar 7.",hint:"luas = panjang * lebar"},
+{level:1,title:"Operator perbandingan dan Boolean",desc:"Bandingkan nilai dengan ==, !=, >, <, >=, <=. Gabungkan kondisi dengan and, or, not.",ex:'umur = 15\nprint(umur >= 17)\nprint(umur > 10 and umur < 20)\nprint(umur == 15)',challenge:"Periksa apakah nilai 80 lebih besar atau sama dengan 75.",hint:"Ekspresi perbandingan menghasilkan True atau False."},
+{level:2,title:"Percabangan if",desc:"if menjalankan blok kode ketika kondisi bernilai True. Perhatikan indentasi.",ex:'nilai = 88\nif nilai >= 75:\n    print("Lulus")',challenge:"Buat program yang mencetak 'Hebat!' jika skor lebih dari 90.",hint:"Gunakan if skor > 90: lalu indentasi print()."},
+{level:2,title:"if-else dan elif",desc:"Gunakan elif untuk kondisi tambahan dan else untuk pilihan terakhir.",ex:'nilai = 82\nif nilai >= 90:\n    print("A")\nelif nilai >= 75:\n    print("B")\nelse:\n    print("Perlu latihan")',challenge:"Buat kategori nilai A, B, dan C.",hint:"Urutkan kondisi dari nilai tertinggi."},
+{level:2,title:"Perulangan for dan range",desc:"for mengulang item. range(mulai, berhenti) tidak memasukkan angka berhenti.",ex:'for angka in range(1, 6):\n    print(angka)',challenge:"Tampilkan bilangan genap dari 2 sampai 10.",hint:"Gunakan range(2, 11, 2)."},
+{level:2,title:"Perulangan while",desc:"while terus berjalan selama kondisi True. Pastikan kondisi berubah agar tidak terjadi loop tanpa akhir.",ex:'hitung = 1\nwhile hitung <= 3:\n    print("Putaran", hitung)\n    hitung += 1',challenge:"Buat hitung mundur dari 5 sampai 1.",hint:"Kurangi nilai variabel di setiap putaran."},
+{level:2,title:"break, continue, dan pass",desc:"break menghentikan loop, continue melewati putaran saat ini, dan pass menjadi placeholder.",ex:'for n in range(1, 8):\n    if n == 5:\n        break\n    if n % 2 == 0:\n        continue\n    print(n)',challenge:"Cetak angka 1 sampai 10 kecuali angka 7.",hint:"Gunakan continue ketika n == 7."},
+{level:3,title:"String dan indeks",desc:"String adalah teks. Indeks dimulai dari 0; indeks negatif menghitung dari belakang.",ex:'kata = "Python"\nprint(kata[0])\nprint(kata[-1])\nprint(kata[1:4])',challenge:"Tampilkan tiga huruf pertama dari kata 'Informatika'.",hint:"Gunakan potongan teks[:3]."},
+{level:3,title:"Metode string dan f-string",desc:"Manfaatkan upper(), lower(), strip(), replace(), split(), dan f-string.",ex:'nama = "  ayu putri  "\nrapi = nama.strip().title()\nprint(rapi)\nprint(f"Halo, {rapi}!")',challenge:"Ubah 'belajar python' menjadi huruf besar.",hint:"Gunakan .upper()."},
+{level:3,title:"List dan indeks",desc:"List menyimpan banyak nilai dalam urutan dan dapat diubah.",ex:'buah = ["apel", "jeruk", "mangga"]\nprint(buah[0])\nbuah[1] = "pisang"\nprint(buah)',challenge:"Buat list berisi tiga mata pelajaran lalu tampilkan item kedua.",hint:"Item kedua memiliki indeks 1."},
+{level:3,title:"Operasi list",desc:"Gunakan append(), insert(), remove(), pop(), sort(), dan len().",ex:'nilai = [80, 95, 72]\nnilai.append(88)\nnilai.sort()\nprint(nilai)\nprint("Jumlah:", len(nilai))',challenge:"Tambahkan satu buah ke list dan urutkan isinya.",hint:"Gunakan append() dan sort()."},
+{level:3,title:"Tuple dan unpacking",desc:"Tuple menyerupai list tetapi tidak dapat diubah setelah dibuat.",ex:'koordinat = (10, 20)\nx, y = koordinat\nprint("x =", x)\nprint("y =", y)',challenge:"Buat tuple berisi hari dan bulan, lalu tampilkan keduanya.",hint:"Gunakan dua variabel untuk unpacking."},
+{level:3,title:"Dictionary",desc:"Dictionary menyimpan pasangan key-value. Akses nilai melalui key.",ex:'siswa = {"nama": "Rina", "nilai": 92}\nprint(siswa["nama"])\nsiswa["kelas"] = 6\nprint(siswa)',challenge:"Buat dictionary berisi nama dan umur.",hint:"Contoh: data = {'nama': 'Adi', 'umur': 11}"},
+{level:3,title:"Set dan nilai unik",desc:"Set menyimpan elemen unik, cocok untuk menghapus duplikasi dan operasi himpunan.",ex:'a = {1, 2, 2, 3}\nb = {3, 4, 5}\nprint(a)\nprint(a | b)\nprint(a & b)',challenge:"Buat set dari list yang memiliki nilai berulang.",hint:"Gunakan set([1, 1, 2, 3])."},
+{level:4,title:"Fungsi dengan def",desc:"Fungsi mengelompokkan kode yang dapat digunakan kembali.",ex:'def sapa(nama):\n    print(f"Halo, {nama}!")\n\nsapa("Dina")\nsapa("Budi")',challenge:"Buat fungsi yang menampilkan pesan semangat.",hint:"Mulai dengan def semangat():."},
+{level:4,title:"Parameter, return, dan default",desc:"Parameter menerima masukan; return mengirim hasil kembali ke pemanggil.",ex:'def luas_persegi(panjang, lebar=4):\n    return panjang * lebar\n\nhasil = luas_persegi(5)\nprint(hasil)',challenge:"Buat fungsi tambah(a, b) yang mengembalikan jumlah.",hint:"Gunakan return a + b."},
+{level:4,title:"Scope, lambda, dan comprehension",desc:"Pelajari cakupan variabel, fungsi lambda singkat, dan list comprehension.",ex:'angka = [1, 2, 3, 4, 5]\nkuadrat = [n*n for n in angka]\ngenap = list(filter(lambda n: n % 2 == 0, angka))\nprint(kuadrat)\nprint(genap)',challenge:"Buat list kuadrat dari angka 1 sampai 6.",hint:"Gunakan [n*n for n in range(1, 7)]."},
+{level:4,title:"Modul dan import",desc:"Modul membantu menggunakan kode dari pustaka Python, misalnya math, random, dan datetime.",ex:'import math\nimport random\nprint(math.sqrt(81))\nprint(round(math.pi, 2))\nprint(random.randint(1, 6))',challenge:"Gunakan math untuk menghitung akar dari 144.",hint:"Gunakan math.sqrt(144)."},
+{level:5,title:"Membaca error dan debugging",desc:"Pahami SyntaxError, NameError, TypeError, dan cara membaca pesan error.",ex:'angka = "10"\ntry:\n    print(int(angka) + 5)\nexcept ValueError as error:\n    print("Nilai tidak valid:", error)',challenge:"Perbaiki kode yang mencoba menambahkan teks langsung dengan angka.",hint:"Konversikan teks angka menggunakan int()."},
+{level:5,title:"Exception handling",desc:"try-except menangani error yang diperkirakan; else berjalan saat sukses dan finally selalu dijalankan.",ex:'try:\n    hasil = 10 / 2\nexcept ZeroDivisionError:\n    print("Tidak bisa dibagi nol")\nelse:\n    print("Hasil:", hasil)\nfinally:\n    print("Program selesai")',challenge:"Tangani kasus pembagian dengan nol.",hint:"Tangkap ZeroDivisionError."},
+{level:5,title:"File teks dan context manager",desc:"open() membaca/menulis file. with membantu menutup file secara aman; akses file bergantung pada lingkungan runtime.",ex:'from io import StringIO\nfile = StringIO("Belajar Python\\nBaris kedua")\nisi = file.read()\nprint(isi)',challenge:"Coba baca isi StringIO dan cetak jumlah karakternya.",hint:"Gunakan len(isi)."},
+{level:5,title:"JSON dan CSV",desc:"JSON cocok untuk data berstruktur; CSV cocok untuk tabel. Modul json/csv tersedia di Python.",ex:'import json\nsiswa = {"nama": "Rani", "nilai": 95}\nteks = json.dumps(siswa, ensure_ascii=False)\nprint(teks)\nprint(json.loads(teks)["nilai"])',challenge:"Ubah dictionary buatanmu menjadi teks JSON.",hint:"Gunakan json.dumps(data)."},
+{level:6,title:"Class, object, dan constructor",desc:"Class adalah cetak biru; object adalah instansinya. __init__ menyiapkan atribut awal.",ex:'class Siswa:\n    def __init__(self, nama, kelas):\n        self.nama = nama\n        self.kelas = kelas\n\ns1 = Siswa("Tono", 6)\nprint(s1.nama, s1.kelas)',challenge:"Buat class Buku dengan atribut judul.",hint:"Tambahkan self.judul = judul di __init__."},
+{level:6,title:"Inheritance, encapsulation, polymorphism",desc:"Pahami pewarisan, pengelolaan atribut, dan method yang berperilaku berbeda antarclass.",ex:'class Hewan:\n    def suara(self):\n        return "Suara hewan"\nclass Kucing(Hewan):\n    def suara(self):\n        return "Meong"\n\nhewan = Kucing()\nprint(hewan.suara())',challenge:"Buat class Anjing yang mewarisi Hewan dan mengembalikan 'Guk'.",hint:"Override method suara()."},
+{level:7,title:"Iterator, generator, rekursi, dan decorator",desc:"Materi lanjutan untuk memahami aliran data dan fungsi yang membungkus fungsi lain.",ex:'def hitung_sampai(batas):\n    for angka in range(1, batas + 1):\n        yield angka\n\nprint(list(hitung_sampai(5)))',challenge:"Buat generator yang menghasilkan bilangan genap sampai 10.",hint:"Gunakan range(2, 11, 2) di dalam yield."},
+{level:7,title:"Testing, logging, dan type hints",desc:"Tingkatkan kualitas program dengan pemeriksaan otomatis, pencatatan kejadian, dan anotasi tipe.",ex:'def tambah(a: int, b: int) -> int:\n    return a + b\n\nassert tambah(2, 3) == 5\nprint("Tes berhasil!")',challenge:"Tambahkan assert untuk memeriksa hasil perkalian.",hint:"assert 4 * 3 == 12"},
+{level:8,title:"Database SQLite",desc:"SQLite menyimpan data terstruktur dalam database lokal; cocok untuk aplikasi kecil dan latihan SQL.",ex:'import sqlite3\nkoneksi = sqlite3.connect(":memory:")\nkoneksi.execute("CREATE TABLE siswa (nama TEXT, nilai INTEGER)")\nkoneksi.execute("INSERT INTO siswa VALUES (?, ?)", ("Ayu", 95))\nfor baris in koneksi.execute("SELECT nama, nilai FROM siswa"):\n    print(baris)\nkoneksi.close()',challenge:"Ubah data siswa dan tampilkan hasil query-nya.",hint:"Gunakan SELECT untuk mengambil data."},
+{level:8,title:"HTTP, API, dan JSON",desc:"API memungkinkan aplikasi bertukar data. Pelajari struktur request/response dan JSON; akses jaringan dapat dibatasi browser.",ex:'import json\nresponse_palsu = {"status": "ok", "data": [10, 20, 30]}\nisi = json.dumps(response_palsu)\ndata = json.loads(isi)\nprint(data["status"])\nprint(sum(data["data"]))',challenge:"Buat data berbentuk dictionary yang memiliki status dan daftar angka.",hint:"Gunakan json.dumps() dan json.loads()."},
+{level:9,title:"Dasar data dan analisis sederhana",desc:"Gunakan list, dictionary, statistik dasar, dan ringkasan data sebelum mempelajari pustaka data science.",ex:'nilai = [78, 90, 85, 92, 75]\nrata_rata = sum(nilai) / len(nilai)\nprint("Jumlah data:", len(nilai))\nprint("Nilai tertinggi:", max(nilai))\nprint("Rata-rata:", round(rata_rata, 2))',challenge:"Hitung nilai minimum dan rata-rata dari lima angka pilihanmu.",hint:"Gunakan min(), sum(), dan len()."},
+{level:10,title:"Praktik terbaik dan proyek akhir",desc:"Susun program menjadi fungsi kecil, gunakan nama yang jelas, validasi masukan, dan tulis instruksi penggunaan.",ex:'def hitung_total(harga, jumlah):\n    if harga < 0 or jumlah < 0:\n        raise ValueError("Nilai tidak boleh negatif")\n    return harga * jumlah\n\nprint("Total belanja:", hitung_total(12000, 3))',challenge:"Kembangkan kalkulator total belanja dengan beberapa barang.",hint:"Simpan harga dalam list, lalu gunakan sum()."}
+,{level:1,title:"Panduan instalasi Python",desc:"Untuk komputer sendiri, unduh Python dari python.org dan saat instalasi Windows centang Add Python to PATH. Playground PyAcademy dapat digunakan tanpa instalasi lokal.",ex:'# Periksa versi Python di terminal komputer\n# python --version\n# atau: py --version\nprint("Python siap dipelajari!")',challenge:"Cari tahu versi Python yang terpasang di komputer kamu.",hint:"Buka Command Prompt lalu jalankan python --version."}
+,{level:1,title:"Cara menjalankan Python",desc:"Kode Python dapat dijalankan dari terminal, editor seperti IDLE atau VS Code, maupun lingkungan online. Simpan file dengan ekstensi .py.",ex:'# Simpan sebagai latihan.py\nprint("Program dijalankan!")',challenge:"Buat file latihan.py dan jalankan dari terminal.",hint:"Di folder file, jalankan python latihan.py."}
+,{level:1,title:"Membuat program Hello World",desc:"Hello World adalah latihan awal untuk memahami sintaks, tanda kutip, dan fungsi print().",ex:'print("Hello, World!")\nprint("Halo, teman-teman!")',challenge:"Tampilkan tiga baris sapaan berbeda.",hint:"Satu print() dapat digunakan untuk setiap baris."}
+,{level:1,title:"Menggunakan komentar di Python",desc:"Komentar satu baris dimulai dengan # dan tidak dieksekusi. Gunakan komentar untuk menjelaskan maksud kode.",ex:'# Menghitung luas persegi\nsisi = 6\nluas = sisi * sisi\nprint("Luas:", luas)',challenge:"Tambahkan komentar pada program penghitung luas persegi panjang.",hint:"Tulis # sebelum catatan yang ingin ditambahkan."}
+,{level:1,title:"Konstanta dan penamaan yang baik",desc:"Python tidak memiliki konstanta yang dipaksa oleh bahasa; konvensinya memakai HURUF_BESAR untuk nilai yang tidak direncanakan berubah.",ex:'PAJAK = 0.11\nharga = 100000\ntotal = harga + harga * PAJAK\nprint(total)',challenge:"Buat konstanta BIAYA_ADMIN dan hitung total pembayaran.",hint:"Gunakan nama huruf besar untuk konstanta menurut konvensi."}
+,{level:2,title:"Operator penugasan",desc:"Operator penugasan seperti =, +=, -=, *=, dan /= memberi atau memperbarui nilai variabel.",ex:'poin = 10\npoin += 5\npoin -= 2\nprint("Poin akhir:", poin)',challenge:"Mulai dari saldo 100, tambahkan 50 lalu kurangi 25.",hint:"Gunakan saldo += 50 dan saldo -= 25."}
+,{level:2,title:"Keanggotaan dan identitas",desc:"Operator in dan not in memeriksa keanggotaan. is dan is not memeriksa identitas objek, bukan sekadar kesamaan nilai.",ex:'buah = ["apel", "jeruk", "mangga"]\nprint("jeruk" in buah)\nprint("durian" not in buah)\na = None\nprint(a is None)',challenge:"Periksa apakah nama mata pelajaran ada di daftar.",hint:"Gunakan nama_mapel in daftar_mapel."}
+,{level:2,title:"Perulangan bersarang",desc:"Perulangan bersarang adalah loop di dalam loop. Ini berguna untuk membuat tabel, pola, atau memproses data dua dimensi.",ex:'for baris in range(1, 4):\n    for kolom in range(1, 4):\n        print(baris * kolom, end=" ")\n    print()',challenge:"Buat pola persegi 3 × 3 menggunakan angka.",hint:"Gunakan dua for dan print() kosong setelah satu baris."}
+,{level:2,title:"Match-case",desc:"Pada Python 3.10+, match-case dapat memilih tindakan berdasarkan pola nilai. Untuk pilihan sederhana, if-elif juga tepat.",ex:'menu = 2\nmatch menu:\n    case 1:\n        print("Mulai")\n    case 2:\n        print("Pengaturan")\n    case _:\n        print("Pilihan tidak dikenal")',challenge:"Buat menu dengan pilihan 1 untuk belajar dan 2 untuk kuis.",hint:"Gunakan case 1, case 2, dan case _."}
+,{level:3,title:"Slicing dan salin list",desc:"Slicing mengambil sebagian urutan dengan bentuk data[mulai:akhir:langkah]. Salin list dengan list_asal.copy() agar tidak hanya membuat alias.",ex:'angka = [10, 20, 30, 40, 50]\nprint(angka[1:4])\nprint(angka[::2])\nsalinan = angka.copy()\nsalinan.append(60)\nprint(angka)\nprint(salinan)',challenge:"Ambil tiga item tengah dari sebuah list berisi lima item.",hint:"Ingat indeks dimulai dari nol dan batas akhir tidak ikut."}
+,{level:3,title:"List bersarang dan matriks",desc:"List dapat menyimpan list lain, misalnya untuk merepresentasikan tabel atau papan permainan.",ex:'matriks = [[1, 2, 3], [4, 5, 6]]\nprint(matriks[0])\nprint(matriks[1][2])',challenge:"Buat tabel nilai dua siswa dengan masing-masing dua nilai.",hint:"Setiap baris dapat dibuat sebagai sebuah list."}
+,{level:3,title:"Mengurutkan data dengan key",desc:"sorted() menghasilkan list baru yang terurut. Parameter key menentukan nilai yang dipakai untuk pengurutan.",ex:'nama = ["Budi", "Anastasia", "Rina"]\nprint(sorted(nama))\nprint(sorted(nama, key=len))',challenge:"Urutkan daftar nama berdasarkan panjang nama.",hint:"Gunakan sorted(daftar_nama, key=len)."}
+,{level:3,title:"Menggunakan enumerate dan zip",desc:"enumerate() memberi nomor urut saat loop, sedangkan zip() memasangkan elemen dari beberapa urutan.",ex:'nama = ["Ayu", "Bima", "Cici"]\nnilai = [90, 85, 95]\nfor no, (siswa, skor) in enumerate(zip(nama, nilai), 1):\n    print(no, siswa, skor)',challenge:"Pasangkan tiga nama dengan tiga nilai.",hint:"Gunakan zip(nama, nilai)."}
+,{level:4,title:"Docstring dan dokumentasi fungsi",desc:"Docstring adalah teks dokumentasi di awal fungsi, class, atau modul. Tulis tujuan, parameter, dan nilai kembali dengan jelas.",ex:'def luas_persegi(sisi):\n    """Menghitung luas persegi dari panjang sisi."""\n    return sisi ** 2\n\nprint(luas_persegi(5))\nprint(luas_persegi.__doc__)',challenge:"Tambahkan docstring ke fungsi penghitung keliling persegi.",hint:"Letakkan teks tiga tanda kutip tepat setelah def."}
+,{level:4,title:"Fungsi rekursif",desc:"Fungsi rekursif memanggil dirinya sendiri. Selalu sediakan kondisi dasar agar pemanggilan berhenti.",ex:'def faktorial(n):\n    if n <= 1:\n        return 1\n    return n * faktorial(n - 1)\n\nprint(faktorial(5))',challenge:"Uji fungsi faktorial untuk angka 3 dan 6.",hint:"Pastikan kondisi dasar menangani n <= 1."}
+,{level:4,title:"Membuat dan menggunakan paket",desc:"Paket mengelompokkan modul dalam folder. Dalam proyek lokal, modul dapat diimpor dengan import nama_modul atau from nama_modul import fungsi.",ex:'# Contoh penggunaan modul bawaan\nfrom math import pi\nprint(round(pi, 3))',challenge:"Gunakan from math import sqrt untuk menghitung akar 196.",hint:"Panggil sqrt(196) setelah mengimpor fungsi."}
+,{level:5,title:"Path dan direktori",desc:"pathlib membantu menyusun jalur file lintas sistem operasi. Pastikan jalur dan izin akses sesuai lingkungan yang digunakan.",ex:'from pathlib import Path\nfolder = Path("materi")\nprint("Nama folder:", folder.name)\nprint("Jalur absolut:", folder.resolve())',challenge:"Buat objek Path untuk file catatan.txt dan tampilkan namanya.",hint:"Gunakan Path('catatan.txt').name."}
+,{level:5,title:"Membaca dan menulis file sungguhan",desc:"Pada Python yang berjalan lokal, Path.write_text() dan read_text() dapat menulis serta membaca file. Akses sistem file mungkin dibatasi pada playground browser.",ex:'from pathlib import Path\nfile = Path("catatan_latihan.txt")\nfile.write_text("Saya sedang belajar Python", encoding="utf-8")\nprint(file.read_text(encoding="utf-8"))',challenge:"Ubah isi file menjadi kalimat buatanmu sendiri.",hint:"Ganti teks pada write_text(). Jalankan di Python lokal bila browser membatasi file."}
+,{level:5,title:"Tanggal, waktu, dan format",desc:"Modul datetime menangani tanggal dan waktu. Gunakan strftime() untuk mengatur tampilan tanggal.",ex:'from datetime import date, datetime\nhari_ini = date.today()\nsekarang = datetime.now()\nprint(hari_ini.strftime("%d-%m-%Y"))\nprint(sekarang.strftime("%H:%M"))',challenge:"Tampilkan tanggal dengan format tahun-bulan-hari.",hint:"Gunakan %Y-%m-%d."}
+,{level:6,title:"Method class dan atribut class",desc:"Method adalah fungsi di dalam class. Atribut class dibagi oleh instance, sedangkan atribut instance biasanya disimpan melalui self.",ex:'class Siswa:\n    sekolah = "PyAcademy"\n    def __init__(self, nama):\n        self.nama = nama\n    def sapa(self):\n        return f"Halo, saya {self.nama}"\n\ns = Siswa("Nina")\nprint(s.sekolah)\nprint(s.sapa())',challenge:"Tambahkan method perkenalan yang mengembalikan nama dan kelas.",hint:"Buat def perkenalan(self): di dalam class."}
+,{level:6,title:"Property dan dataclass",desc:"property memberi akses terkontrol ke atribut. dataclass mempermudah pembuatan class yang terutama menyimpan data.",ex:'from dataclasses import dataclass\n@dataclass\nclass Buku:\n    judul: str\n    halaman: int\n\nb = Buku("Python Dasar", 120)\nprint(b.judul, b.halaman)',challenge:"Buat dataclass Produk dengan nama dan harga.",hint:"Impor dataclass dan tulis anotasi tipe untuk atribut."}
+,{level:7,title:"Set comprehension dan dictionary comprehension",desc:"Comprehension membuat koleksi secara ringkas, tetapi tetap utamakan keterbacaan kode.",ex:'angka = range(1, 6)\nkuadrat = {n: n*n for n in angka}\ngenap = {n for n in angka if n % 2 == 0}\nprint(kuadrat)\nprint(genap)',challenge:"Buat dictionary angka dan kubiknya untuk angka 1 sampai 4.",hint:"Gunakan {n: n**3 for n in range(1, 5)}."}
+,{level:7,title:"Argumen *args dan **kwargs",desc:"*args mengumpulkan argumen posisi, sedangkan **kwargs mengumpulkan argumen bernama ke dictionary.",ex:'def ringkasan(*angka):\n    print("Jumlah data:", len(angka))\n    print("Total:", sum(angka))\n\ndef profil(**data):\n    print(data)\n\nringkasan(2, 4, 6)\nprofil(nama="Ayu", kelas=6)',challenge:"Buat fungsi yang menerima beberapa angka menggunakan *args.",hint:"Gunakan def total(*angka): lalu sum(angka)."}
+,{level:7,title:"Context manager dan with",desc:"Context manager mengelola sumber daya dan membersihkannya dengan aman. StringIO bisa digunakan untuk latihan file di memori.",ex:'from io import StringIO\nwith StringIO("baris satu\\nbaris dua") as berkas:\n    for baris in berkas:\n        print(baris.strip())',challenge:"Baca dua baris teks dari StringIO dan tampilkan satu per satu.",hint:"Gunakan with StringIO(teks) as berkas."}
+,{level:7,title:"Ekspresi reguler",desc:"Modul re mencari pola dalam teks, misalnya memeriksa format sederhana. Validasi format bukan jaminan bahwa data benar-benar valid.",ex:'import re\nteks = "Hubungi 081234567890"\nnomor = re.search(r"\\d{10,13}", teks)\nprint(nomor.group() if nomor else "Tidak ditemukan")',challenge:"Cari semua rangkaian angka dalam teks menggunakan re.findall().",hint:"Gunakan pola r'\\d+'."}
+,{level:7,title:"Tanggal, waktu, dan zona waktu",desc:"Gunakan datetime dan zoneinfo untuk waktu yang sadar zona waktu. Nama zona memerlukan dukungan database zona waktu pada lingkungan Python.",ex:'from datetime import datetime, timezone\nsekarang = datetime.now(timezone.utc)\nprint(sekarang.isoformat())',challenge:"Tampilkan waktu UTC dalam format ISO.",hint:"Gunakan datetime.now(timezone.utc)."}
+,{level:8,title:"SQL dasar: SELECT, WHERE, ORDER BY",desc:"SQL mengambil data dari tabel. Gunakan parameter query untuk nilai pengguna, bukan menggabungkan string SQL secara langsung.",ex:'import sqlite3\ndb = sqlite3.connect(":memory:")\ndb.execute("CREATE TABLE nilai (nama TEXT, skor INTEGER)")\ndb.executemany("INSERT INTO nilai VALUES (?, ?)", [("Ayu", 90), ("Bima", 75), ("Cici", 95)])\nfor row in db.execute("SELECT nama, skor FROM nilai WHERE skor >= ? ORDER BY skor DESC", (80,)):\n    print(row)\ndb.close()',challenge:"Ubah batas nilai pada WHERE menjadi 85.",hint:"Ubah parameter query menjadi (85,)."}
+,{level:8,title:"Menyusun program dengan main",desc:"Fungsi main() mengelompokkan alur utama. Pola if __name__ == '__main__' menjalankan program hanya ketika file dieksekusi langsung.",ex:'def main():\n    pesan = "Belajar secara bertahap"\n    print(pesan)\n\nif __name__ == "__main__":\n    main()',challenge:"Tambahkan fungsi sapa() dan panggil dari main().",hint:"Definisikan fungsi sebelum main()."}
+,{level:9,title:"Statistik dasar dan median",desc:"Selain rata-rata, median membantu memahami nilai tengah. Untuk kumpulan data kecil, modul statistics menyediakan fungsi siap pakai.",ex:'import statistics\nnilai = [70, 80, 90, 95, 100]\nprint("Rata-rata:", statistics.mean(nilai))\nprint("Median:", statistics.median(nilai))',challenge:"Hitung mean dan median dari lima nilai baru.",hint:"Gunakan statistics.mean() dan statistics.median()."}
+,{level:9,title:"Visualisasi data sederhana",desc:"Matplotlib sering digunakan untuk grafik di Python lokal atau notebook. Jika pustaka tidak terpasang di runtime, instal dan jalankan contoh di lingkungan yang mendukungnya.",ex:'# Contoh untuk Python lokal dengan matplotlib terpasang\nimport matplotlib.pyplot as plt\nhari = ["Sen", "Sel", "Rab"]\nnilai = [70, 85, 90]\nplt.plot(hari, nilai, marker="o")\nplt.title("Nilai latihan")\nplt.show()',challenge:"Ubah data menjadi nilai latihanmu sendiri dan tampilkan grafik.",hint:"Pastikan matplotlib terpasang di lingkungan Python."}
+,{level:10,title:"Proyek 1: Kalkulator interaktif",desc:"Gabungkan variabel, operator, fungsi, dan percabangan menjadi kalkulator sederhana. Contoh ini memakai nilai yang sudah ditetapkan agar bisa dijalankan di browser.",ex:'def hitung(a, operator, b):\n    if operator == "+": return a + b\n    if operator == "-": return a - b\n    if operator == "*": return a * b\n    if operator == "/" and b != 0: return a / b\n    return "Operasi tidak valid"\n\nprint(hitung(12, "+", 8))\nprint(hitung(12, "/", 3))',challenge:"Tambahkan operator pangkat ** ke fungsi kalkulator.",hint:"Tambahkan kondisi operator == '**'."}
+,{level:10,title:"Proyek 2: Kuis pilihan ganda",desc:"Simpan pertanyaan dan jawaban dalam list/dictionary, periksa jawaban, lalu hitung skor akhir.",ex:'soal = [("2 + 3 = ?", "5"), ("Ibu kota Indonesia?", "Jakarta")]\njawaban = ["5", "Jakarta"]\nskor = 0\nfor i, (pertanyaan, kunci) in enumerate(soal):\n    print(pertanyaan)\n    if jawaban[i].lower() == kunci.lower():\n        skor += 1\nprint("Skor:", skor, "/", len(soal))',challenge:"Tambahkan satu pertanyaan baru ke dalam list soal.",hint:"Tambahkan tuple berisi teks soal dan kunci jawaban."}
+,{level:10,title:"Proyek 3: Pengelola daftar tugas",desc:"Gunakan list dan fungsi untuk menambah, menampilkan, dan menandai tugas selesai. Versi ini memakai data contoh tanpa input interaktif.",ex:'tugas = [{"nama": "Belajar variabel", "selesai": True}, {"nama": "Latihan loop", "selesai": False}]\nfor item in tugas:\n    status = "Selesai" if item["selesai"] else "Belum"\n    print(item["nama"], "-", status)',challenge:"Tambahkan satu tugas baru yang belum selesai.",hint:"Tambahkan dictionary baru ke list tugas."}
+,{level:10,title:"Proyek 4: Rekap nilai siswa",desc:"Gabungkan list/dictionary dan fungsi statistik untuk membuat ringkasan nilai siswa.",ex:'siswa = {"Ayu": [90, 85, 95], "Bima": [75, 80, 78]}\nfor nama, nilai in siswa.items():\n    rata = sum(nilai) / len(nilai)\n    print(nama, "rata-rata:", round(rata, 2))',challenge:"Tambahkan siswa ketiga dan tampilkan rata-ratanya.",hint:"Tambahkan key baru dengan list nilai."}
+,{level:10,title:"Proyek 5: Buku kontak sederhana",desc:"Dictionary dapat menyimpan nama dan nomor telepon. Untuk data nyata, pikirkan privasi dan jangan menaruh informasi sensitif pada halaman publik.",ex:'kontak = {"Ayu": "081200000001", "Bima": "081200000002"}\nfor nama, nomor in kontak.items():\n    print(f"{nama}: {nomor}")\nprint("Kontak tersedia:", len(kontak))',challenge:"Tambahkan satu kontak contoh dan hitung jumlah kontak.",hint:"Buat pasangan key dan value baru dalam dictionary."}
+,{level:10,title:"Proyek akhir: Rancang aplikasi mini",desc:"Pilih masalah nyata, pecah menjadi fungsi kecil, siapkan data, validasi kondisi, uji beberapa kasus, lalu dokumentasikan cara kerja aplikasi.",ex:'def hitung_total(harga, jumlah):\n    if harga < 0 or jumlah < 0:\n        raise ValueError("Nilai tidak boleh negatif")\n    return harga * jumlah\n\nkeranjang = [(12000, 3), (5000, 2)]\ntotal = sum(hitung_total(harga, jumlah) for harga, jumlah in keranjang)\nprint("Total belanja:", total)',challenge:"Kembangkan aplikasi mini pilihanmu dan uji setidaknya tiga kasus.",hint:"Mulai dari fungsi inti, lalu tambahkan validasi dan contoh data."}
 
-for idx, modul in enumerate(pilihan_modul, 1):
-    print(f"{idx}. Modul {modul}")
-
-print("\nStatus: Siap menjadi Python Master! 🚀")</textarea>
-                    </div>
-
-                    <!-- Terminal Output Window -->
-                    <div class="p-4 bg-black/90 flex flex-col justify-between min-h-[320px]">
-                        <div>
-                            <div class="flex items-center justify-between text-xs text-slate-400 font-mono mb-3 pb-2 border-b border-slate-800">
-                                <span class="text-sky-400 font-bold flex items-center gap-1.5">
-                                    <i class="fa-solid fa-terminal text-[11px]"></i> Output Console
-                                </span>
-                                <span id="executionTime" class="text-[10px] text-slate-500">Ready</span>
-                            </div>
-
-                            <pre id="terminalOutput" class="code-font text-xs sm:text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">Klik 'Jalankan Kode' untuk melihat hasil eksekusi program...</pre>
-                        </div>
-
-                        <div class="pt-4 text-[11px] text-slate-600 font-mono border-t border-slate-900 flex justify-between items-center">
-                            <span>PyAcademy Virtual Engine v1.0</span>
-                            <span class="text-emerald-500/80"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Active</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Quiz Section -->
-    <section id="quiz" class="py-20 px-4 lg:px-8 border-t border-py-border/60 bg-slate-950/30">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-xs font-bold text-py-yellow tracking-widest uppercase bg-py-yellow/10 px-3 py-1 rounded-full border border-py-yellow/20">Uji Pemahaman</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-3">Kuis Singkat Python</h2>
-                <p class="text-slate-400 mt-2 text-sm">Uji seberapa jauh pemahaman Anda terhadap konsep dasar Python.</p>
-            </div>
-
-            <div class="glass-panel rounded-2xl p-6 sm:p-8 border border-py-border space-y-8">
-                
-                <!-- Quiz Item 1 -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-white text-base sm:text-lg flex items-center gap-2">
-                        <span class="w-7 h-7 rounded-lg bg-py-blue/20 text-sky-400 text-xs flex items-center justify-center shrink-0">1</span>
-                        Mana fungsi bawaan Python yang digunakan untuk menampilkan teks ke konsol?
-                    </h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                        <button onclick="checkQuiz(1, 'a', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">A. console.log()</button>
-                        <button onclick="checkQuiz(1, 'b', true, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">B. print()</button>
-                        <button onclick="checkQuiz(1, 'c', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">C. System.out.println()</button>
-                        <button onclick="checkQuiz(1, 'd', false, this)" class="q1-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">D. echo()</button>
-                    </div>
-                    <div id="quiz-msg-1" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
-                </div>
-
-                <hr class="border-py-border">
-
-                <!-- Quiz Item 2 -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-white text-base sm:text-lg flex items-center gap-2">
-                        <span class="w-7 h-7 rounded-lg bg-py-blue/20 text-sky-400 text-xs flex items-center justify-center shrink-0">2</span>
-                        Tipe data manakah di Python yang sifatnya <i>Immutable</i> (tidak dapat diubah setelah dibuat)?
-                    </h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                        <button onclick="checkQuiz(2, 'a', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">A. List</button>
-                        <button onclick="checkQuiz(2, 'b', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">B. Dictionary</button>
-                        <button onclick="checkQuiz(2, 'c', true, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">C. Tuple</button>
-                        <button onclick="checkQuiz(2, 'd', false, this)" class="q2-opt text-left p-3.5 rounded-xl glass-card border border-py-border text-slate-300 hover:text-white transition">D. Set</button>
-                    </div>
-                    <div id="quiz-msg-2" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 px-4 lg:px-8 border-t border-py-border/60">
-        <div class="max-w-4xl mx-auto space-y-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-white">Pertanyaan Umum (FAQ)</h2>
-                <p class="text-slate-400 text-sm mt-2">Jawaban atas pertanyaan yang paling sering ditanyakan pemula.</p>
-            </div>
-
-            <div class="space-y-4">
-                <details class="glass-card rounded-xl p-5 border border-py-border group transition">
-                    <summary class="font-bold text-white cursor-pointer flex justify-between items-center">
-                        Apakah saya perlu menginstal Python di laptop untuk menggunakan PyAcademy?
-                        <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
-                        Tidak perlu! Platform ini dilengkapi dengan simulator terminal interaktif berbasis JavaScript di browser sehingga Anda bisa langsung berlatih tanpa setup awal.
-                    </p>
-                </details>
-
-                <details class="glass-card rounded-xl p-5 border border-py-border group transition">
-                    <summary class="font-bold text-white cursor-pointer flex justify-between items-center">
-                        Berapa lama waktu yang dibutuhkan untuk menguasai dasar Python?
-                        <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:rotate-180 transition-transform"></i>
-                    </summary>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-3 leading-relaxed">
-                        Kebanyakan pemula dapat memahami konsep dasar (Variabel, Conditionals, Loops) dalam 1-2 minggu dengan konsistensi belajar 1 jam setiap hari.
-                    </p>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="border-t border-py-border bg-slate-950/80 py-10 px-4 lg:px-8 text-center text-xs text-slate-500">
-        <div class="max-w-7xl mx-auto space-y-4">
-            <div class="flex items-center justify-center space-x-2 text-slate-300 font-bold text-base">
-                <i class="fa-brands fa-python text-py-yellow"></i>
-                <span>PyAcademy</span>
-            </div>
-            <p>© 2026 PyAcademy. Platform Belajar Python Interaktif Indonesia.</p>
-        </div>
-    </footer>
-
-    <!-- Custom JavaScript Logic -->
-    <script>
-        // Mobile Navigation Toggle
-        const menuBtn = document.getElementById('menuToggleBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Tab Switcher Logic
-        function switchTab(tabIndex) {
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('border-py-yellow', 'bg-slate-800/80', 'text-white');
-                btn.classList.add('border-transparent', 'text-slate-400');
-            });
-
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.add('hidden'));
-
-            const activeBtn = document.getElementById(`tab-btn-${tabIndex}`);
-            if(activeBtn) {
-                activeBtn.classList.remove('border-transparent', 'text-slate-400');
-                activeBtn.classList.add('border-py-yellow', 'bg-slate-800/80', 'text-white');
-            }
-
-            const activeContent = document.getElementById(`tab-content-${tabIndex}`);
-            if(activeContent) {
-                activeContent.classList.remove('hidden');
-            }
-        }
-
-        // Presets for Playground
-        const presets = {
-            hello: 'print("Halo Dunia! Selamat belajar Python.")\nnama = "PyAcademy"\nprint(f"Platform: {nama}")',
-            calculator: 'def tambah(a, b):\n    return a + b\n\nx = 15\ny = 25\nprint(f"Hasil {x} + {y} = {tambah(x, y)}")',
-            star: 'for i in range(1, 6):\n    print("⭐ " * i)',
-            oop: 'class Hero:\n    def __init__(self, name, hp):\n        self.name = name\n        self.hp = hp\n\n    def status(self):\n        print(f"Hero {self.name} | HP: {self.hp}")\n\nh1 = Hero("Lancelot", 100)\nh1.status()'
-        };
-
-        function setPreset(key) {
-            const editor = document.getElementById('codeEditor');
-            if(presets[key]) {
-                editor.value = presets[key];
-            }
-        }
-
-        function loadSnippetToPlayground(modulId) {
-            const editor = document.getElementById('codeEditor');
-            const snippetMap = {
-                1: 'nama = "Budi"\numur = 20\ntinggi = 175.5\nprint(f"Halo {nama}, umur kamu {umur} tahun.")',
-                2: 'nilai = 85\nif nilai >= 75:\n    print("Lulus!")\nfor i in range(3, 0, -1):\n    print(f"Detik ke-{i}")',
-                3: 'buah = ["Apel", "Pisang", "Jeruk"]\nbuah.append("Mangga")\nprint(f"Daftar Buah: {buah}")',
-                4: 'def hitung_diskon(harga, persen=10):\n    return harga - (harga * (persen / 100))\nprint(f"Harga Diskon: Rp {int(hitung_diskon(100000, 20))}")',
-                5: 'class Mobil:\n    def __init__(self, merk):\n        self.merk = merk\n    def klakson(self):\n        print(f"Mobil {self.merk}: Beep Beep! 🚗")\nm = Mobil("Tesla")\nm.klakson()',
-                6: 'try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("Error: Pembagian dengan nol dibatalkan!")'
-            };
-
-            if(snippetMap[modulId]) {
-                editor.value = snippetMap[modulId];
-                window.location.hash = '#playground';
-            }
-        }
-
-        function resetEditor() {
-            document.getElementById('codeEditor').value = '';
-            document.getElementById('terminalOutput').textContent = 'Editor di-reset. Masukkan kode baru...';
-        }
-
-        // Python Code Interpreter Simulation Logic
-        function runPythonCode() {
-            const code = document.getElementById('codeEditor').value;
-            const outputElem = document.getElementById('terminalOutput');
-            const timeElem = document.getElementById('executionTime');
-
-            const startTime = performance.now();
-            let logs = [];
-
-            try {
-                const lines = code.split('\n');
-
-                lines.forEach(line => {
-                    let trimmed = line.trim();
-                    if(!trimmed || trimmed.startsWith('#')) return;
-
-                    // Mock Print Handling
-                    if(trimmed.startsWith('print(') && trimmed.endsWith(')')) {
-                        let content = trimmed.substring(6, trimmed.length - 1);
-                        if ((content.startsWith('"') && content.endsWith('"')) || (content.startsWith("'") && content.endsWith("'"))) {
-                            logs.push(content.slice(1, -1));
-                        } else {
-                            logs.push(`[Output Evaluated]: ${content}`);
-                        }
-                    }
-                });
-
-                const endTime = performance.now();
-                const duration = ((endTime - startTime) / 1000).toFixed(3);
-                timeElem.textContent = `Selesai dalam ${duration}s`;
-
-                if(logs.length > 0) {
-                    outputElem.textContent = logs.join('\n');
-                } else {
-                    outputElem.textContent = "Program berhasil dieksekusi tanpa keluaran print.";
-                }
-            } catch (err) {
-                outputElem.textContent = `SyntaxError/ExecutionError: ${err.message}`;
-            }
-        }
-
-        // Quiz Checker Function
-        function checkQuiz(questionId, option, isCorrect, element) {
-            const msgElem = document.getElementById(`quiz-msg-${questionId}`);
-            const options = document.querySelectorAll(`.q${questionId}-opt`);
-
-            options.forEach(opt => {
-                opt.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500');
-            });
-
-            msgElem.classList.remove('hidden', 'bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/30', 'bg-red-500/10', 'text-red-400', 'border-red-500/30');
-
-            if(isCorrect) {
-                element.classList.add('bg-emerald-500/20', 'border-emerald-500');
-                msgElem.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/30');
-                msgElem.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Benar sekali! Jawaban Anda tepat.';
-            } else {
-                element.classList.add('bg-red-500/20', 'border-red-500');
-                msgElem.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/30');
-                msgElem.innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Kurang tepat. Silakan coba lagi!';
-            }
-        }
-    </script>
+];
+const levels = [
+{n:1,name:"Pemula",range:"1–8"},
+{n:2,name:"Logika",range:"9–13"},
+{n:3,name:"Struktur Data",range:"14–20"},
+{n:4,name:"Fungsi",range:"21–24"},
+{n:5,name:"Error & File",range:"25–28"},
+{n:6,name:"OOP",range:"29"},
+{n:7,name:"Lanjutan",range:"30–31"},
+{n:8,name:"Database & API",range:"32–33"},
+{n:9,name:"Analisis Data",range:"34"},
+{n:10,name:"Proyek",range:"35"}
+];
+// Number lessons based on the curated lesson list; level badges remain learning stages.
+let activeLevel=0, activeLesson=0;
+const listEl=document.getElementById('lessonList'), panel=document.getElementById('lessonPanel'), filterEl=document.getElementById('levelFilters');
+const stageNames={1:"Fondasi Python",2:"Logika Program",3:"Struktur Data",4:"Fungsi & Modul",5:"Error dan File",6:"OOP",7:"Konsep Lanjutan",8:"Database & API",9:"Analisis Data",10:"Proyek Akhir"};
+function renderFilters(){
+ filterEl.innerHTML='<button data-level="0" class="filter rounded-lg px-3 py-2 text-xs font-bold bg-yellow-300 text-slate-950">Semua</button>'+Object.keys(stageNames).map(n=>`<button data-level="${n}" class="filter rounded-lg px-3 py-2 text-xs bg-slate-800 text-slate-300">${n}. ${stageNames[n]}</button>`).join('');
+ filterEl.querySelectorAll('button').forEach(b=>b.onclick=()=>{activeLevel=Number(b.dataset.level);renderFilters();renderLessons()});
+ filterEl.querySelectorAll('button').forEach(b=>{if(Number(b.dataset.level)===activeLevel)b.className='filter rounded-lg px-3 py-2 text-xs font-bold bg-yellow-300 text-slate-950'});
+}
+function renderLessons(){
+ const q=document.getElementById('searchLesson').value.toLowerCase();
+ const found=lessons.map((l,i)=>({...l,i})).filter(l=>(!activeLevel||l.level===activeLevel)&&(`${l.title} ${l.desc} ${l.challenge} ${stageNames[l.level]}`).toLowerCase().includes(q));
+ listEl.innerHTML=found.map(l=>`<button data-index="${l.i}" class="lesson-card ${l.i===activeLesson?'active':''} rounded-xl text-left p-3 flex gap-3 items-start"><span class="w-8 h-8 shrink-0 rounded-lg bg-slate-800 flex items-center justify-center text-xs font-bold text-yellow-300">${String(l.i+1).padStart(2,'0')}</span><span><b class="block text-sm text-slate-100">${l.title}</b><span class="block text-xs text-slate-400 mt-1">${stageNames[l.level]}</span></span></button>`).join('')||'<p class="text-sm text-slate-500 p-4">Materi tidak ditemukan.</p>';
+ listEl.querySelectorAll('button').forEach(b=>b.onclick=()=>showLesson(Number(b.dataset.index)));
+}
+function showLesson(i){
+ activeLesson=i;const l=lessons[i];
+ panel.innerHTML=`<div class="flex flex-wrap gap-2 items-center mb-4"><span class="text-xs rounded-full px-3 py-1 bg-sky-400/10 text-sky-300 border border-sky-400/20">Modul ${i+1} dari ${lessons.length}</span><span class="text-xs rounded-full px-3 py-1 bg-yellow-300/10 text-yellow-200">${stageNames[l.level]}</span></div><h3 class="text-2xl md:text-3xl font-extrabold">${l.title}</h3><p class="text-slate-400 leading-relaxed mt-4">${l.desc}</p><div class="mt-7 rounded-xl border border-slate-700 overflow-hidden"><div class="flex justify-between bg-slate-900 px-4 py-3 text-xs"><span class="font-semibold">contoh.py</span><button id="tryLesson" class="text-yellow-300 font-bold"><i class="fa-solid fa-play mr-1"></i>Coba di Playground</button></div><pre class="code-font text-sm p-4 bg-slate-950 text-emerald-200">${escapeHtml(l.ex)}</pre></div><div class="mt-5 p-4 rounded-xl bg-sky-400/10 border border-sky-400/20"><h4 class="font-bold text-sky-200"><i class="fa-solid fa-lightbulb mr-2"></i>Tantangan</h4><p class="text-sm text-slate-300 mt-2">${l.challenge}</p><details class="mt-3 text-sm"><summary class="cursor-pointer text-yellow-200">Lihat petunjuk</summary><p class="text-slate-400 mt-2">${l.hint}</p></details></div><div class="flex flex-wrap justify-between gap-3 mt-7"><button id="prevLesson" ${i===0?'disabled':''} class="rounded-xl px-4 py-3 bg-slate-800 text-sm disabled:opacity-30"><i class="fa-solid fa-arrow-left mr-2"></i>Modul sebelumnya</button><button id="nextLesson" ${i===lessons.length-1?'disabled':''} class="rounded-xl px-4 py-3 bg-yellow-300 text-slate-950 font-bold text-sm disabled:opacity-30">Modul berikutnya<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
+ document.getElementById('tryLesson').onclick=()=>{document.getElementById('codeEditor').value=l.ex;document.getElementById('playground').scrollIntoView({behavior:'smooth'});};
+ document.getElementById('prevLesson').onclick=()=>showLesson(Math.max(0,i-1));
+ document.getElementById('nextLesson').onclick=()=>showLesson(Math.min(lessons.length-1,i+1));
+ renderLessons();
+}
+function escapeHtml(s){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+document.getElementById('searchLesson').addEventListener('input',renderLessons);
+renderFilters();showLesson(0);
+const projectData=[
+["Kalkulator pintar","Operator, fungsi, percabangan","Buat operasi tambah, kurang, kali, dan bagi dengan validasi."],
+["Aplikasi nilai siswa","List, perulangan, fungsi","Hitung rata-rata, nilai tertinggi, dan kategori hasil belajar."],
+["Kasir mini","Dictionary, perhitungan, kondisi","Hitung total belanja, diskon, dan kembalian."],
+["Tebak angka","Random, while, if-else","Buat permainan tebak angka dengan batas percobaan."],
+["Daftar tugas","List, fungsi, menu","Tambah, lihat, dan hapus tugas dari daftar."],
+["Ringkasan data","List, statistik dasar","Analisis data sederhana dengan jumlah, rata-rata, min, dan max."]
+];
+document.getElementById('projectGrid').innerHTML=projectData.map((p,i)=>`<article class="lesson-card rounded-2xl p-5"><div class="w-10 h-10 rounded-xl bg-sky-400/10 text-sky-300 flex items-center justify-center mb-4"><i class="fa-solid ${['fa-calculator','fa-graduation-cap','fa-cash-register','fa-dice','fa-list-check','fa-chart-column'][i]}"></i></div><h3 class="font-bold text-lg">${p[0]}</h3><p class="text-xs text-yellow-200 mt-2">${p[1]}</p><p class="text-sm text-slate-400 mt-3">${p[2]}</p><button class="project-start mt-4 text-sm font-bold text-sky-300" data-project="${i}">Mulai proyek <i class="fa-solid fa-arrow-right ml-1"></i></button></article>`).join('');
+document.querySelectorAll('.project-start').forEach(b=>b.onclick=()=>{const snippets=[
+'def hitung(a, operator, b):\n    if operator == "+": return a + b\n    if operator == "-": return a - b\n    if operator == "*": return a * b\n    if operator == "/" and b != 0: return a / b\n    return "Operasi tidak valid"\n\nprint(hitung(12, "+", 8))',
+'nilai = [80, 75, 90, 88, 95]\nrata = sum(nilai) / len(nilai)\nprint("Rata-rata:", rata)\nprint("Tertinggi:", max(nilai))\nprint("Terendah:", min(nilai))',
+'keranjang = {"Buku": 12000, "Pensil": 3000, "Penghapus": 2000}\ntotal = sum(keranjang.values())\ndiskon = total * 0.1 if total >= 15000 else 0\nprint("Total:", total)\nprint("Diskon:", diskon)\nprint("Bayar:", total - diskon)',
+'import random\nrahasia = random.randint(1, 10)\ntebakan = 7\nprint("Angka rahasia:", rahasia)\nif tebakan == rahasia: print("Tepat!")\nelse: print("Coba lagi!")',
+'tugas = ["Belajar Python", "Mengerjakan latihan"]\ntugas.append("Membuat proyek")\nfor nomor, item in enumerate(tugas, 1): print(nomor, item)',
+'data = [72, 85, 91, 78, 88]\nprint("Jumlah data:", len(data))\nprint("Rata-rata:", sum(data)/len(data))\nprint("Min:", min(data), "Max:", max(data))'
+];document.getElementById('codeEditor').value=snippets[Number(b.dataset.project)];document.getElementById('playground').scrollIntoView({behavior:'smooth'});});
+const presets={hello:'nama = "PyAcademy"\nprint("Halo, dunia!")\nprint("Selamat belajar di", nama)',loop:'for angka in range(1, 6):\n    print("Angka:", angka)',function:'def luas_persegi(panjang):\n    return panjang * panjang\n\nprint("Luas:", luas_persegi(5))'};
+document.querySelectorAll('.preset').forEach(b=>b.onclick=()=>document.getElementById('codeEditor').value=presets[b.dataset.preset]);
+document.getElementById('resetCode').onclick=()=>{document.getElementById('codeEditor').value='';document.getElementById('output').textContent='Editor dikosongkan. Tulis kode Python lalu tekan Jalankan.'};
+let pyodide=null;
+async function initPython(){
+ const status=document.getElementById('runtimeStatus');
+ try{status.textContent='Memuat Python…';pyodide=await loadPyodide();status.textContent='Python siap';document.getElementById('output').textContent='Python siap digunakan. Tulis kode lalu tekan Jalankan.';}
+ catch(e){status.textContent='Runtime belum tersedia';document.getElementById('output').textContent='Runtime Python gagal dimuat. Periksa koneksi internet lalu muat ulang halaman.';}
+}
+initPython();
+document.getElementById('runCode').onclick=async()=>{
+ const out=document.getElementById('output'),status=document.getElementById('runtimeStatus'),code=document.getElementById('codeEditor').value;
+ if(!pyodide){out.textContent='Runtime Python sedang dimuat atau gagal dimuat. Periksa koneksi internet.';return;}
+ status.textContent='Menjalankan…';out.textContent='';
+ try{
+  pyodide.setStdout({batched:(s)=>{out.textContent+=s+'\n';}});
+  pyodide.setStderr({batched:(s)=>{out.textContent+='ERROR: '+s+'\n';}});
+  const result=await pyodide.runPythonAsync(code);
+  if(result!==undefined)out.textContent+=(out.textContent?'\n':'')+String(result);
+  if(!out.textContent.trim())out.textContent='Program selesai tanpa keluaran.';
+  status.textContent='Selesai';
+ }catch(e){out.textContent=String(e);status.textContent='Ada error';}
+};
+</script>
 </body>
 </html>
